@@ -136,50 +136,66 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
   }
 }
 
-Column getCharityRow(BuildContext context, String charityName) {
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Theme.of(context).canvasColor,
-                      backgroundImage: NetworkImage(
-                          'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
-                    ),
-                  ),
-                  sizedBox(0, 10),
-                  Text(
-                    charityName,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+InkWell getCharityRow(BuildContext context, String charityName) {
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CharityScreenPortrait(
+            charityBanner:
+                'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
+            charityImage:
+                'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
+            charityName: 'Charity Name',
           ),
-          Icon(
-            FontAwesomeIcons.chevronRight,
-            color: Theme.of(context).secondaryHeaderColor,
-            size: 15,
-          ),
-        ],
-      ),
-      Divider(
-        color: Theme.of(context).primaryColor,
-      ),
-    ],
+        ),
+      );
+    },
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Theme.of(context).canvasColor,
+                        backgroundImage: NetworkImage(
+                            'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                      ),
+                    ),
+                    sizedBox(0, 10),
+                    Text(
+                      charityName,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Icon(
+              FontAwesomeIcons.chevronRight,
+              color: Theme.of(context).secondaryHeaderColor,
+              size: 15,
+            ),
+          ],
+        ),
+        Divider(
+          color: Theme.of(context).primaryColor,
+        ),
+      ],
+    ),
   );
 }
