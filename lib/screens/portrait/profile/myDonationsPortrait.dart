@@ -51,64 +51,23 @@ class MyDonationsPortrait extends StatelessWidget {
                               ),
                             ],
                           ),
-                          RichText(
-                            text: TextSpan(
-                              style: TextStyle(fontFamily: 'Montserrat'),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Tracking number: ',
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).secondaryHeaderColor,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'IW3475453455',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
+                          getRichText(
+                            context,
+                            'Tracking number: ',
+                            'IW3475453455',
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                  style: TextStyle(fontFamily: 'Montserrat'),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: 'Quantity: ',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '3',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                              getRichText(
+                                context,
+                                'Quantity: ',
+                                '3',
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  style: TextStyle(fontFamily: 'Montserrat'),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: 'Total Amount: ',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '112',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                              getRichText(
+                                context,
+                                'Total Amount: ',
+                                '112',
                               ),
                             ],
                           ),
@@ -124,4 +83,5 @@ class MyDonationsPortrait extends StatelessWidget {
       ),
     );
   }
+
 }

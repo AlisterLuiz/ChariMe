@@ -8,6 +8,10 @@ export 'package:auto_size_text/auto_size_text.dart';
 export 'dart:io';
 export 'package:pin_code_text_field/pin_code_text_field.dart';
 export 'dart:async';
+export 'package:fl_chart/fl_chart.dart';
+export 'package:search_page/search_page.dart';
+export 'package:ChariMe/widgets/graphs/campaignBarGraph.dart';
+export 'package:progress_button/progress_button.dart';
 
 // Firebase
 
@@ -34,6 +38,7 @@ export 'package:ChariMe/widgets/slider/slide_dots.dart';
 export 'package:ChariMe/widgets/slider/slide_item.dart';
 export 'package:ChariMe/widgets/slider/slide_model.dart';
 export 'package:ChariMe/widgets/slider/advertBanner.dart';
+export 'package:ChariMe/widgets/graphs/indicator.dart';
 
 // Responsive
 export 'package:ChariMe/enums/device_screen_type.dart';
@@ -62,11 +67,21 @@ export 'package:ChariMe/screens/portrait/home/homeScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/profile/myDonationsPortrait.dart';
 export 'package:ChariMe/screens/portrait/profile/settingsPortrait.dart';
 export 'package:ChariMe/screens/portrait/campaigns/campaignsScreenPortrait.dart';
-export 'package:ChariMe/screens/portrait/charities/charitiesScreen.dart';
+export 'package:ChariMe/screens/portrait/charities/charitiesScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/profile/profileScreenPortrait.dart';
+export 'package:ChariMe/screens/portrait/campaigns/singleCampaignScreenPortrait.dart';
+export 'package:ChariMe/screens/portrait/charities/singleCharityScreenPortrait.dart';
 
 // Services
 
 // Providers
 export 'package:provider/provider.dart';
 export 'package:ChariMe/providers/currentIndexProvider.dart';
+
+// Widgets
+export 'package:ChariMe/widgets/campaignCard.dart';
+export 'package:ChariMe/widgets/charityCard.dart';
+export 'package:ChariMe/widgets/graphs/charityPieChart.dart';
+export 'package:ChariMe/widgets/homeHeader.dart';
+export 'package:ChariMe/widgets/settingsTile.dart';
+export 'package:ChariMe/widgets/richText.dart';

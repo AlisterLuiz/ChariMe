@@ -1,28 +1,20 @@
 import 'package:ChariMe/utilities/index.dart';
 
-class CampaignsScreenPortrait extends StatefulWidget {
+class CharitiesScreenPortrait extends StatefulWidget {
   @override
-  _CampaignsScreenPortraitState createState() =>
-      _CampaignsScreenPortraitState();
+  _CharitiesScreenPortraitState createState() =>
+      _CharitiesScreenPortraitState();
 }
 
-class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
-  List countries = [
-    'Asia',
-    'Europe',
-    'Americas',
-    'Africa',
-    'Oceania',
-  ];
-  bool isLoading = false;
-
+class _CharitiesScreenPortraitState extends State<CharitiesScreenPortrait> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
-          'Campaigns',
+          'Charities',
           style: TextStyle(
             fontFamily: 'Montserrat',
           ),
@@ -55,8 +47,8 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           ),
                           fontFamily: 'Montserrat',
                         ),
-                  items: ['Campaign Name', 'Campaign Name', 'Campaign Name'],
-                  searchLabel: 'Search Campaigns',
+                  items: ['Charity Name', 'Charity Name', 'Charity Name'],
+                  searchLabel: 'Search Charities',
                   suggestion: Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 20,
@@ -66,16 +58,16 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         getHomeHeader(context, 'Recent Searches',
-                            'Campaigns that you have searched previously'),
+                            'Charities that you have searched previously'),
                         sizedBox(10, 0),
-                        getCampaignsList(context, () {
+                        getCharitiesList(context, () {
                           setState(() {});
                         }),
                       ],
                     ),
                   ),
                   // failure: Center(
-                  //   child: Text('No Campaign Found :('),
+                  //   child: Text('No Charity Found :('),
                   // ),
                   failure: Container(
                     padding: EdgeInsets.symmetric(
@@ -88,19 +80,16 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           crossAxisCount: 2,
                           childAspectRatio: screenWidth(context) *
                               0.5 /
-                              (screenHeight(context) * 0.35),
+                              (screenHeight(context) * 0.2),
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return getCampaignCard(context);
+                          return getCharityCard(context);
                         }),
                   ),
                   filter: (filter) => [],
-                  builder: (filter) => getCampaignsList(
-                    context,
-                    () {
-                      setState(() {});
-                    },
-                  ),
+                  builder: (filter) => getCharitiesList(context, () {
+                    setState(() {});
+                  }),
                 ),
               );
             },
@@ -114,14 +103,12 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
         ),
         child: ListView(
           children: [
-            getHomeHeader(context, 'Trending Campaigns',
-                'Campaigns trending worldwide right now!'),
-            getCampaignsList(context, () {
-              setState(() {});
-            }),
-            sizedBox(10, 0),
-            getHomeHeader(context, 'Most Popular Campaigns',
-                'Campaigns that have raised the most money!'),
+            getHomeHeader(context, 'Worldwide Charities',
+                'Where our charities are based on'),
+            CharityPieChart(),
+            sizedBox(15, 0),
+            getHomeHeader(context, 'Most Popular Charities',
+                'Charities that have raised the most money!'),
             sizedBox(10, 0),
             ListView.builder(
               shrinkWrap: true,
@@ -143,12 +130,11 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CampaignScreenPortrait(
-                                campaignImage:
+                              builder: (context) => CharityScreenPortrait(
+                                charityBanner:
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
                                 charityImage:
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                campaignName: 'Campaign Name',
                                 charityName: 'Charity Name',
                               ),
                             ),
@@ -158,7 +144,6 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text((i + 1).toString()),
-                            // sizedBox(0, 25),
                             Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -170,9 +155,8 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
                               ),
                             ),
-                            // SizedBox(width: 20),
                             AutoSizeText(
-                              'Campaign Name',
+                              'Charity Name',
                               maxLines: 2,
                             ),
                           ],
