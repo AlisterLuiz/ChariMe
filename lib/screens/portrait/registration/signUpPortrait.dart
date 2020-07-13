@@ -9,7 +9,7 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-
+  String password = '';
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -47,6 +47,10 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                         labelText: 'Password',
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
+                        password: password,
+                        func: () {
+                          setState(() {});
+                        },
                       ),
                       sizedBox(15, 0),
                       GestureDetector(
