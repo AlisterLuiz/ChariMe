@@ -1,4 +1,3 @@
-import 'package:ChariMe/backend/register.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class CustomTextField extends StatelessWidget {
