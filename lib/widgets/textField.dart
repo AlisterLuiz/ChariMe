@@ -5,7 +5,6 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType type;
   final String hintText;
-  String password;
   final Function func;
 
   CustomTextField(
