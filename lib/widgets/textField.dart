@@ -13,19 +13,13 @@ class CustomTextField extends StatelessWidget {
       {@required this.labelText,
       @required this.controller,
       @required this.type,
-      this.password,
       this.func,
       this.hintText});
 
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      onChanged: (value) {
-        password = value;
-        print(password);
-        hashPassword(password);
-        func();
-      },
+      onChanged: func,
       // onEditingComplete: () => ,
       keyboardType: type,
       obscureText: (type == TextInputType.visiblePassword) ? true : false,

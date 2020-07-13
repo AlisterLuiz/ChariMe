@@ -1,3 +1,4 @@
+import 'package:ChariMe/backend/register.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class SignUpPortrait extends StatefulWidget {
@@ -10,6 +11,7 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   String password = '';
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -47,9 +49,13 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                         labelText: 'Password',
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
-                        password: password,
-                        func: () {
-                          setState(() {});
+                        func: (value) {
+                          setState(
+                            () {
+                              password = value;
+                              hashPassword(password);
+                            },
+                          );
                         },
                       ),
                       sizedBox(15, 0),
