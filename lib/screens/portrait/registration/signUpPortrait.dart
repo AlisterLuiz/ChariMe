@@ -9,8 +9,13 @@ class SignUpPortrait extends StatefulWidget {
 class _SignUpPortraitState extends State<SignUpPortrait> {
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
+  TextEditingController usernameController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  String name = '';
+  String emailID = '';
+  String username = '';
   String password = '';
+
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,12 +42,41 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                         labelText: 'Name',
                         controller: nameController,
                         type: TextInputType.text,
+                        func: (value) {
+                          setState(
+                                () {
+                              name = value;
+                              print(name);
+                            },
+                          );
+                        },
                       ),
                       sizedBox(15, 0),
                       CustomTextField(
                         labelText: 'Email',
                         controller: emailController,
                         type: TextInputType.emailAddress,
+                        func: (value) {
+                          setState(
+                                () {
+                              emailID = value;
+                              print(emailID);
+                            },
+                          );
+                        },
+                      ),
+                      sizedBox(15, 0),
+                      CustomTextField(
+                        labelText: 'Username',
+                        controller: usernameController,
+                        type: TextInputType.text,
+                        func: (value) {
+                          setState(
+                                () {
+                              username = value;
+                            },
+                          );
+                        },
                       ),
                       sizedBox(15, 0),
                       CustomTextField(
@@ -53,7 +87,6 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                           setState(
                             () {
                               password = value;
-                              hashPassword(password);
                             },
                           );
                         },
@@ -81,6 +114,7 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                         context,
                         'SIGN UP',
                         () {
+                          register(name, emailID, username, password);
                           Navigator.pushNamed(
                             context,
                             Routes.otpScreenPortrait,
