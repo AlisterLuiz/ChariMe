@@ -1,17 +1,12 @@
 import 'package:ChariMe/backend/login.dart';
 import 'package:ChariMe/utilities/index.dart';
 
-
 class LoginPagePortrait extends StatefulWidget {
   @override
   _LoginPagePortraitState createState() => _LoginPagePortraitState();
 }
 
 class _LoginPagePortraitState extends State<LoginPagePortrait> {
-
-
-
-
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   String username = '';
@@ -42,7 +37,7 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                         type: TextInputType.text,
                         func: (value) {
                           setState(
-                                () {
+                            () {
                               username = value;
                             },
                           );
@@ -55,7 +50,7 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                         type: TextInputType.visiblePassword,
                         func: (value) {
                           setState(
-                                () {
+                            () {
                               password = value;
                             },
                           );
@@ -87,14 +82,28 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                         context,
                         'LOGIN',
                         () async {
-                          if (await verify(username, password)){
+                          if (await verify(username, password)) {
                             Navigator.pushNamed(
                                 context, Routes.navigationScreenPortrait);
-
                           } else {
-                            show("Password did not match.");
+                            print("Password did not match.");
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text("Incorrect Password"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    color: Theme.of(context).accentColor,
+                                    textColor: Theme.of(context).primaryColor,
+                                    child: Text('Close'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              ),
+                            );
                           }
-
                         },
                       ),
                       sizedBox(30, 0),
