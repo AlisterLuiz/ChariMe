@@ -46,7 +46,6 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                           setState(
                                 () {
                               name = value;
-                              print(name);
                             },
                           );
                         },
@@ -60,7 +59,6 @@ class _SignUpPortraitState extends State<SignUpPortrait> {
                           setState(
                                 () {
                               emailID = value;
-                              print(emailID);
                             },
                           );
                         },

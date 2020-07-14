@@ -17,10 +17,18 @@ Future<void> register(String name, String emailID, String username, String passw
       db: 'data'
   );
   var conn = await MySqlConnection.connect(settings);
-  await conn.query('insert into login (username, password) values (?, ?)', [username, hashPassword(password)]);
+
+  try{
+    await conn.query('insert into login (username, password) values (?, ?)', [username, hashPassword(password)]);
+    print("NAME: " + name + " USERNAME: " + username + " successfully registered in the database.");
+  }
+
+  catch(e){
+    print(e);
+  }
+
   conn.close();
 
-  print("NAME: " + name + " USERNAME: " + username + " successfully registered in the database.");
 
 }
 

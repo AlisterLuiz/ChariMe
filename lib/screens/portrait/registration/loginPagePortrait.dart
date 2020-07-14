@@ -1,4 +1,6 @@
+import 'package:ChariMe/backend/login.dart';
 import 'package:ChariMe/utilities/index.dart';
+
 
 class LoginPagePortrait extends StatefulWidget {
   @override
@@ -6,8 +8,14 @@ class LoginPagePortrait extends StatefulWidget {
 }
 
 class _LoginPagePortraitState extends State<LoginPagePortrait> {
+
+
+
+
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  String username = '';
+  String password = '';
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,15 +37,29 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                   child: Column(
                     children: [
                       CustomTextField(
-                        labelText: 'Email',
+                        labelText: 'Username',
                         controller: emailController,
-                        type: TextInputType.emailAddress,
+                        type: TextInputType.text,
+                        func: (value) {
+                          setState(
+                                () {
+                              username = value;
+                            },
+                          );
+                        },
                       ),
                       sizedBox(15, 0),
                       CustomTextField(
                         labelText: 'Password',
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
+                        func: (value) {
+                          setState(
+                                () {
+                              password = value;
+                            },
+                          );
+                        },
                       ),
                       sizedBox(15, 0),
                       GestureDetector(
@@ -64,9 +86,15 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                       getButton(
                         context,
                         'LOGIN',
-                        () {
-                          Navigator.pushNamed(
-                              context, Routes.navigationScreenPortrait);
+                        () async {
+                          if (await verify(username, password)){
+                            Navigator.pushNamed(
+                                context, Routes.navigationScreenPortrait);
+
+                          } else {
+                            show("Password did not match.");
+                          }
+
                         },
                       ),
                       sizedBox(30, 0),
