@@ -125,6 +125,24 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                           ),
                         ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Are you a Non-Profit Organization?'),
+                          sizedBox(0, 5),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, Routes.signUpPortraitNPO);
+                            },
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
