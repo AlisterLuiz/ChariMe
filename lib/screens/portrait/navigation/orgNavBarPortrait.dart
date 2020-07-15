@@ -16,6 +16,7 @@ class _OrgNavigationBarState extends State<OrgNavigationBarPortrait> {
 
     final List<Widget> _children = [
       OrgHomeScreenPortrait(),
+      CampaignScreenPortrait(),
       OrgProfileScreenPortrait(),
     ];
 
@@ -43,6 +44,16 @@ class _OrgNavigationBarState extends State<OrgNavigationBarPortrait> {
               ),
               title: Text(
                 'Home',
+                style: kNavigationBarTextStyle,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                FontAwesomeIcons.peopleCarry,
+                semanticLabel: 'Campaigns',
+              ),
+              title: Text(
+                'Campaigns',
                 style: kNavigationBarTextStyle,
               ),
             ),

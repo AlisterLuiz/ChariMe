@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       onChanged: func,
       keyboardType: type,
-      maxLines: null,
+      // maxLines: null,
       obscureText: (type == TextInputType.visiblePassword) ? true : false,
       textAlign: TextAlign.left,
       cursorColor:
