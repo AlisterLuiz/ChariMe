@@ -1,3 +1,4 @@
+import 'package:ChariMe/screens/portrait/registration/signUpPotraitNPO.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class Routes {
@@ -11,6 +12,9 @@ class Routes {
 
   static const String signUpLandscape = '/signUpLandscape';
   static const String signUpPortrait = '/signUpPortrait';
+  static const String signUpPortraitNPO = '/signUpPortraitNPO';
+
+
 
   static const String otpScreenLandscape = '/otpScreenLandscape';
   static const String otpScreenPortrait = '/otpScreenPortrait';
@@ -39,6 +43,8 @@ class Routes {
     forgotPasswordPortrait: (BuildContext context) => ForgotPasswordPortrait(),
     signUpLandscape: (BuildContext context) => SignUpLandscape(),
     signUpPortrait: (BuildContext context) => SignUpPortrait(),
+    signUpPortraitNPO: (BuildContext context) => SignUpPortraitNPO(),
+
     otpScreenLandscape: (BuildContext context) => OTPScreenLandscape(),
     otpScreenPortrait: (BuildContext context) => OTPScreenPortrait(),
     navigationScreenLandscape: (BuildContext context) =>

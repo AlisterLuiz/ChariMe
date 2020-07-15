@@ -63,6 +63,7 @@ export 'package:ChariMe/screens/portrait/navigation/navBarPortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/loginPagePortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/forgotPasswordPortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/signUpPortrait.dart';
+export 'package:ChariMe/screens/portrait/registration/signUpPortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/otpScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/home/homeScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/profile/myDonationsPortrait.dart';
