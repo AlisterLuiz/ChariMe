@@ -9,7 +9,7 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField(
       {@required this.labelText,
-      @required this.controller,
+      this.controller,
       @required this.type,
       this.func,
       this.hintText});
@@ -18,8 +18,8 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       onChanged: func,
-      // onEditingComplete: () => ,
       keyboardType: type,
+      maxLines: null,
       obscureText: (type == TextInputType.visiblePassword) ? true : false,
       textAlign: TextAlign.left,
       cursorColor:

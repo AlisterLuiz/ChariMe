@@ -34,6 +34,7 @@ dependencies:
   fl_chart: ^0.10.1
   progress_button: ^0.0.2
   dbcrypt: ^1.0.0 
+  image_picker: ^0.6.7+4
 
   mysql1: ^0.17.1
 

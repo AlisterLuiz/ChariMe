@@ -77,17 +77,15 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               children: [
-                ProgressButton(
-                  onPressed: () {},
-                  child: Text(
-                    'DONATE',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  buttonState: ButtonState.normal,
-                  backgroundColor: Theme.of(context).cardColor,
-                  progressColor: Theme.of(context).primaryColor,
+                getButton(
+                  context,
+                  'DONATE',
+                  () async {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.orgnavigationScreenPortrait,
+                    );
+                  },
                 ),
                 sizedBox(20, 0),
                 Text(

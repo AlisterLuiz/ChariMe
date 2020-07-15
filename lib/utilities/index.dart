@@ -12,6 +12,7 @@ export 'package:fl_chart/fl_chart.dart';
 export 'package:search_page/search_page.dart';
 export 'package:ChariMe/widgets/graphs/campaignBarGraph.dart';
 export 'package:progress_button/progress_button.dart';
+export 'package:image_picker/image_picker.dart';
 
 // Firebase
 
@@ -58,7 +59,7 @@ export 'package:ChariMe/screens/landscape/registration/signUpLandscape.dart';
 export 'package:ChariMe/screens/landscape/registration/otpScreenLandscape.dart';
 
 // Portrait for Tablet and Phone
-export 'package:ChariMe/screens/portrait/navBarPortrait.dart';
+export 'package:ChariMe/screens/portrait/navigation/navBarPortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/loginPagePortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/forgotPasswordPortrait.dart';
 export 'package:ChariMe/screens/portrait/registration/signUpPortrait.dart';
@@ -71,6 +72,10 @@ export 'package:ChariMe/screens/portrait/charities/charitiesScreenPortrait.dart'
 export 'package:ChariMe/screens/portrait/profile/profileScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/campaigns/singleCampaignScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/charities/singleCharityScreenPortrait.dart';
+export 'package:ChariMe/screens/portrait/navigation/orgNavBarPortrait.dart';
+export 'package:ChariMe/screens/portrait/home/orgHomeScreenPortrait.dart';
+export 'package:ChariMe/screens/portrait/profile/orgProfileScreenPortrait.dart';
+export 'package:ChariMe/screens/portrait/campaigns/addNewCampaignPortrait.dart';
 
 // Services
 

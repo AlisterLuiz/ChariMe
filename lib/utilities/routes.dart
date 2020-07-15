@@ -18,11 +18,19 @@ class Routes {
   static const String navigationScreenLandscape = '/navigationScreenLandscape';
   static const String navigationScreenPortrait = '/navigationScreenPortrait';
 
+  static const String orgnavigationScreenLandscape =
+      '/orgnavigationScreenLandscape';
+  static const String orgnavigationScreenPortrait =
+      '/orgnavigationScreenPortrait';
+
   static const String myDonationsLandscape = '/myDonationsLandscape';
   static const String myDonationsPortrait = '/myDonationsPortrait';
 
   static const String settingsLandscape = '/settingsLandscape';
   static const String settingsPortrait = '/settingsPortrait';
+
+  static const String addNewCampaignLandscape = '/addNewCampaignLandscape';
+  static const String addNewCampaignPortrait = '/addNewCampaignPortrait';
 
   static final routes = <String, WidgetBuilder>{
     homeView: (BuildContext context) => HomeView(),
@@ -36,9 +44,15 @@ class Routes {
     navigationScreenLandscape: (BuildContext context) =>
         NavigationBarLandscape(),
     navigationScreenPortrait: (BuildContext context) => NavigationBarPortrait(),
+    //  navigationScreenLandscape: (BuildContext context) =>
+    //     NavigationBarLandscape(),
+    orgnavigationScreenPortrait: (BuildContext context) =>
+        OrgNavigationBarPortrait(),
     // myDonationsLandscape: (BuildContext context) => MyDonationsLandscape(),
     myDonationsPortrait: (BuildContext context) => MyDonationsPortrait(),
     // settingsLandscape: (BuildContext context) => SettingsLandscape(),
     settingsPortrait: (BuildContext context) => SettingsPortrait(),
+    // addNewCampaignLandscape: (BuildContext context) => AddNewCampaignLandscape(),
+    addNewCampaignPortrait: (BuildContext context) => AddNewCampaignPortrait(),
   };
 }

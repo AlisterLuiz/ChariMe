@@ -82,28 +82,38 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                         context,
                         'LOGIN',
                         () async {
-                          if (await verify(username, password)) {
-                            Navigator.pushNamed(
-                                context, Routes.navigationScreenPortrait);
-                          } else {
-                            print("Password did not match.");
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text("Incorrect Password"),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    color: Theme.of(context).accentColor,
-                                    textColor: Theme.of(context).primaryColor,
-                                    child: Text('Close'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ],
-                              ),
-                            );
-                          }
+                          Navigator.pushNamed(
+                            context,
+                            Routes.orgnavigationScreenPortrait,
+                          );
+                          // if (await verify(username, password)) {
+                          //   // Navigator.pushNamed(
+                          //   //   context,
+                          //   //   Routes.navigationScreenPortrait,
+                          //   // );
+                          //   Navigator.pushNamed(
+                          //     context,
+                          //     Routes.orgnavigationScreenPortrait,
+                          //   );
+                          // } else {
+                          //   print("Password did not match.");
+                          //   showDialog(
+                          //     context: context,
+                          //     builder: (_) => AlertDialog(
+                          //       title: Text("Incorrect Password"),
+                          //       actions: <Widget>[
+                          //         FlatButton(
+                          //           color: Theme.of(context).accentColor,
+                          //           textColor: Theme.of(context).primaryColor,
+                          //           child: Text('Close'),
+                          //           onPressed: () {
+                          //             Navigator.of(context).pop();
+                          //           },
+                          //         )
+                          //       ],
+                          //     ),
+                            // );
+                          // }
                         },
                       ),
                       sizedBox(30, 0),
