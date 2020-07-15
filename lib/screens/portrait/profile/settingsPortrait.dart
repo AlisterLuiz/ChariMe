@@ -106,6 +106,16 @@ class _SettingsPortraitState extends State<SettingsPortrait> {
                 ),
               ],
             ),
+            getButton(
+              context,
+              'LOG OUT',
+              () async {
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.myApp,
+                // );
+              },
+            ),
             sizedBox(20, 0),
           ],
         ),

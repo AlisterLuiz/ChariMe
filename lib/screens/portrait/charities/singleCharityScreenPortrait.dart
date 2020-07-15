@@ -154,37 +154,4 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
       ),
     );
   }
-
-  Container getCharityDetailsCard(
-      BuildContext context, String title, String subtitle) {
-    return Container(
-      width: screenWidth(context) * 0.4,
-      height: screenHeight(context) * 0.14,
-      child: Card(
-        color: Theme.of(context).cardColor,
-        child: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              AutoSizeText(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

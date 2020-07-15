@@ -40,6 +40,7 @@ export 'package:ChariMe/widgets/slider/slide_item.dart';
 export 'package:ChariMe/widgets/slider/slide_model.dart';
 export 'package:ChariMe/widgets/slider/advertBanner.dart';
 export 'package:ChariMe/widgets/graphs/indicator.dart';
+export 'package:ChariMe/widgets/charityCampaignCard.dart';
 
 // Responsive
 export 'package:ChariMe/enums/device_screen_type.dart';
@@ -50,6 +51,8 @@ export 'package:ChariMe/responsive/screen_type_layout.dart';
 
 // HomeView
 export 'package:ChariMe/screens/homeView.dart';
+export 'package:ChariMe/main.dart';
+export 'package:ChariMe/screens/portrait/registration/signUpPotraitNPO.dart';
 
 // Landscape for Tablet and Laptop
 export 'package:ChariMe/screens/landscape/navBarLandscape.dart';
@@ -77,6 +80,7 @@ export 'package:ChariMe/screens/portrait/navigation/orgNavBarPortrait.dart';
 export 'package:ChariMe/screens/portrait/home/orgHomeScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/profile/orgProfileScreenPortrait.dart';
 export 'package:ChariMe/screens/portrait/campaigns/addNewCampaignPortrait.dart';
+export 'package:ChariMe/screens/portrait/campaigns/orgHistoryCampaignsPage.dart';
 
 // Services
 
@@ -91,3 +95,4 @@ export 'package:ChariMe/widgets/graphs/charityPieChart.dart';
 export 'package:ChariMe/widgets/homeHeader.dart';
 export 'package:ChariMe/widgets/settingsTile.dart';
 export 'package:ChariMe/widgets/richText.dart';
+export 'package:ChariMe/widgets/graphs/lineChartHistory.dart';

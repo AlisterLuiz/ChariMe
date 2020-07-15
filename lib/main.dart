@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         builder: DevicePreview.appBuilder,
-        title: 'Portfolio - Alister Luiz',
+        title: 'ChariMe',
         theme: Provider.of<ThemeModel>(context).currentTheme,
         initialRoute: Routes.homeView,
         routes: Routes.routes,

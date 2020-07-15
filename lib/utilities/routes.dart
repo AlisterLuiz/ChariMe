@@ -1,10 +1,11 @@
-import 'package:ChariMe/screens/portrait/registration/signUpPotraitNPO.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class Routes {
   Routes._();
 
   //static variables
+  static const String myApp = '/myApp';
+
   static const String homeView = '/homeView';
 
   static const String forgotPasswordLandscape = '/forgotPasswordLandscape';
@@ -13,8 +14,6 @@ class Routes {
   static const String signUpLandscape = '/signUpLandscape';
   static const String signUpPortrait = '/signUpPortrait';
   static const String signUpPortraitNPO = '/signUpPortraitNPO';
-
-
 
   static const String otpScreenLandscape = '/otpScreenLandscape';
   static const String otpScreenPortrait = '/otpScreenPortrait';
@@ -37,6 +36,7 @@ class Routes {
   static const String addNewCampaignPortrait = '/addNewCampaignPortrait';
 
   static final routes = <String, WidgetBuilder>{
+    myApp: (BuildContext context) => MyApp(),
     homeView: (BuildContext context) => HomeView(),
     forgotPasswordLandscape: (BuildContext context) =>
         ForgotPasswordLandscape(),
