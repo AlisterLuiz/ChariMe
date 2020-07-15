@@ -39,7 +39,7 @@ class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
                   },
                 ),
                 Expanded(
-                  flex: 8,
+                  flex: 10,
                   child: ListView(
                     children: [
                       Center(
