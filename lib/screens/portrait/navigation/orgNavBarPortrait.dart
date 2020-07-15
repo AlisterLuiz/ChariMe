@@ -16,7 +16,7 @@ class _OrgNavigationBarState extends State<OrgNavigationBarPortrait> {
 
     final List<Widget> _children = [
       OrgHomeScreenPortrait(),
-      CampaignScreenPortrait(),
+      CampaignsScreenPortrait(),
       OrgProfileScreenPortrait(),
     ];
 
