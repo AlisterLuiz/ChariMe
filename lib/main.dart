@@ -9,7 +9,7 @@ void main() {
     ChangeNotifierProvider<ThemeModel>(
       create: (BuildContext context) => ThemeModel(),
       child: DevicePreview(
-        enabled: true,
+        enabled: false,
         builder: (context) => MyApp(),
       ),
     ),

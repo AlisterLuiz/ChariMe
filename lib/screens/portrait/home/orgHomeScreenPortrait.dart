@@ -1,3 +1,5 @@
+import 'package:ChariMe/backend/addNewCampaign.dart';
+import 'package:ChariMe/backend/dbServices.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class OrgHomeScreenPortrait extends StatefulWidget {
@@ -48,6 +50,7 @@ class _OrgHomeScreenPortraitState extends State<OrgHomeScreenPortrait> {
                     context,
                     'ADD NEW CAMPAIGN',
                     () async {
+                      getAllCampaigns();
                       Navigator.pushNamed(
                         context,
                         Routes.addNewCampaignPortrait,
