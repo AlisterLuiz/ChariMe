@@ -16,19 +16,19 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: SingleChildScrollView(
-          child: Container(
-            height: screenHeight(context),
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                getHeader(3, false, 'Login', null),
-                Expanded(
-                  flex: 4,
+        body: Container(
+          height: screenHeight(context),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 20,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getHeader(3, false, 'Login', null),
+              Expanded(
+                flex: 4,
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       CustomTextField(
@@ -112,7 +112,7 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                           //         )
                           //       ],
                           //     ),
-                            // );
+                          // );
                           // }
                         },
                       ),
@@ -135,47 +135,51 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Are you a Non-Profit Organization?'),
-                          sizedBox(0, 5),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, Routes.signUpPortraitNPO);
-                            },
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                  color: Theme.of(context).accentColor),
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Are you a Non-Profit Organization?'),
+                            sizedBox(0, 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, Routes.signUpPortraitNPO);
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                    color: Theme.of(context).accentColor),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
+                      sizedBox(10, 0),
                     ],
                   ),
                 ),
-                Center(
-                  child: Text('Or login with social account'),
-                ),
-                sizedBox(15, 0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    getRegistrationIcons(
-                      context,
-                      'assets/images/google.png',
-                    ),
-                    sizedBox(0, 30),
-                    getRegistrationIcons(
-                      context,
-                      'assets/images/facebook.png',
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              ),
+              Center(
+                child: Text('Or login with social account'),
+              ),
+              sizedBox(15, 0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getRegistrationIcons(
+                    context,
+                    'assets/images/google.png',
+                  ),
+                  sizedBox(0, 30),
+                  getRegistrationIcons(
+                    context,
+                    'assets/images/facebook.png',
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
