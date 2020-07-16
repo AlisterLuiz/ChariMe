@@ -100,12 +100,9 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                         }),
                   ),
                   filter: (filter) => [],
-                  builder: (filter) => getCampaignsList(
-                    context,
-                    () {
-                      setState(() {});
-                    },
-                  campaigns),
+                  builder: (filter) => getCampaignsList(context, () {
+                    setState(() {});
+                  }, campaigns),
                 ),
               );
             },
@@ -153,36 +150,37 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
                                 charityImage:
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                campaignName: 'Campaign Name',
-                                charityName: 'Charity Name',
+                                campaignName: campaigns[i].campTitle,
+                                charityName: campaigns[i].hostedByNPO,
+                                desc: campaigns[i].campDescription,
                               ),
                             ),
                           );
                         },
-                        title: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Row(
-                            children: <Widget>[
-                              Text((i + 1).toString()),
-                              sizedBox(0, 10),
-                              Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      Theme.of(context).canvasColor,
-                                  backgroundImage: NetworkImage(
-                                      'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
-                                ),
+                        title: Row(
+                          children: <Widget>[
+                            Text((i + 1).toString()),
+                            sizedBox(0, 10),
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                               ),
-                              sizedBox(0, 10),
-                              AutoSizeText(
-                                'Campaign Name',
+                              child: CircleAvatar(
+                                backgroundColor: Theme.of(context).canvasColor,
+                                backgroundImage: NetworkImage(
+                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                              ),
+                            ),
+                            sizedBox(0, 10),
+                            Container(
+                              width: screenWidth(context) * 0.4,
+                              child: AutoSizeText(
+                                campaigns[i].campTitle,
                                 maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         trailing: Text(
                           '\$100,421',
