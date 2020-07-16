@@ -83,7 +83,7 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                   () async {
                     Navigator.pushNamed(
                       context,
-                      Routes.orgnavigationScreenPortrait,
+                      Routes.webView,
                     );
                   },
                 ),

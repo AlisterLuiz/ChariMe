@@ -35,6 +35,8 @@ class Routes {
   static const String addNewCampaignLandscape = '/addNewCampaignLandscape';
   static const String addNewCampaignPortrait = '/addNewCampaignPortrait';
 
+  static const String webView = '/webView';
+
   static final routes = <String, WidgetBuilder>{
     myApp: (BuildContext context) => MyApp(),
     homeView: (BuildContext context) => HomeView(),
@@ -60,5 +62,6 @@ class Routes {
     settingsPortrait: (BuildContext context) => SettingsPortrait(),
     // addNewCampaignLandscape: (BuildContext context) => AddNewCampaignLandscape(),
     addNewCampaignPortrait: (BuildContext context) => AddNewCampaignPortrait(),
+    webView: (BuildContext context) => MyWebView()
   };
 }
