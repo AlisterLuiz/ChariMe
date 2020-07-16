@@ -1,3 +1,5 @@
+import 'package:ChariMe/backend/addNewCampaign.dart';
+import 'package:ChariMe/providers/usernameProvider.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class AddNewCampaignPortrait extends StatefulWidget {
@@ -8,6 +10,9 @@ class AddNewCampaignPortrait extends StatefulWidget {
 class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
   File _image;
   final picker = ImagePicker();
+  String campaignName = "";
+  String description = "";
+
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -17,7 +22,10 @@ class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
   }
 
   Widget build(BuildContext context) {
+    String username = Provider.of<UserNameProvider>(context, listen: false).getUsername();
+    print(username);
     return SafeArea(
+
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
@@ -74,19 +82,32 @@ class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
                       CustomTextField(
                         labelText: 'Campaign Name',
                         type: TextInputType.text,
-                        func: (value) {},
+                        func: (value) {
+                          setState(
+                                () {
+                              campaignName = value;
+                            },
+                          );
+                        },
                       ),
                       sizedBox(15, 0),
                       CustomTextField(
                         labelText: 'Description',
                         type: TextInputType.text,
-                        func: (value) {},
+                        func: (value) {
+                          setState(
+                                () {
+                              description = value;
+                            },
+                          );
+                        },
                       ),
                       sizedBox(15, 0),
                       getButton(
                         context,
                         'SUBMIT',
                         () async {
+                          addCampaign(username, campaignName, description);
                           Navigator.pop(context);
                         },
                       ),

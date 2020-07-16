@@ -1,10 +1,13 @@
 import 'package:ChariMe/backend/login.dart';
+import 'package:ChariMe/providers/usernameProvider.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class LoginPagePortrait extends StatefulWidget {
   @override
   _LoginPagePortraitState createState() => _LoginPagePortraitState();
 }
+
+
 
 class _LoginPagePortraitState extends State<LoginPagePortrait> {
   TextEditingController emailController = new TextEditingController();
@@ -82,38 +85,40 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                         context,
                         'LOGIN',
                         () async {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.orgnavigationScreenPortrait,
-                          );
-                          // if (await verify(username, password)) {
-                          //   // Navigator.pushNamed(
-                          //   //   context,
-                          //   //   Routes.navigationScreenPortrait,
-                          //   // );
-                          //   Navigator.pushNamed(
-                          //     context,
-                          //     Routes.orgnavigationScreenPortrait,
-                          //   );
-                          // } else {
-                          //   print("Password did not match.");
-                          //   showDialog(
-                          //     context: context,
-                          //     builder: (_) => AlertDialog(
-                          //       title: Text("Incorrect Password"),
-                          //       actions: <Widget>[
-                          //         FlatButton(
-                          //           color: Theme.of(context).accentColor,
-                          //           textColor: Theme.of(context).primaryColor,
-                          //           child: Text('Close'),
-                          //           onPressed: () {
-                          //             Navigator.of(context).pop();
-                          //           },
-                          //         )
-                          //       ],
-                          //     ),
-                            // );
-                          // }
+                           if (await verify(username, password)) {
+                             Provider.of<UserNameProvider>(context, listen: false).setUsername(username);
+                             if (await checkAccountType(username)){
+                               
+                               Navigator.pushNamed(
+                                 context,
+                                 Routes.orgnavigationScreenPortrait,
+                               );
+                             } else {
+                               Navigator.pushNamed(
+                                 context,
+                                 Routes.navigationScreenPortrait,
+                               );
+                             }
+
+                           } else {
+                             print("Password did not match.");
+                             showDialog(
+                               context: context,
+                               builder: (_) => AlertDialog(
+                                 title: Text("Incorrect Password"),
+                                 actions: <Widget>[
+                                   FlatButton(
+                                     color: Theme.of(context).accentColor,
+                                     textColor: Theme.of(context).primaryColor,
+                                     child: Text('Close'),
+                                     onPressed: () {
+                                       Navigator.of(context).pop();
+                                     },
+                                   )
+                                 ],
+                               ),
+                             );
+                           }
                         },
                       ),
                       sizedBox(30, 0),
