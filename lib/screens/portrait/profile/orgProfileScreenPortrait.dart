@@ -68,12 +68,17 @@ class _OrgProfileScreenPortraitState extends State<OrgProfileScreenPortrait> {
                     sizedBox(10, 0),
                     Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            getRichText(context, 'Country of Origin: ', 'USA'),
-                            getRichText(context, 'Founded: ', '1985'),
-                          ],
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              getRichText(
+                                  context, 'Country of Origin: ', 'USA'),
+                              sizedBox(0, 2),
+                              getRichText(context, 'Founded: ', '1985'),
+                            ],
+                          ),
                         ),
                         sizedBox(10, 0),
                         getRichText(context, 'Founders: ', 'John Doe'),

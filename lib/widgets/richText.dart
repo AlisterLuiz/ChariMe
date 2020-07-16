@@ -13,7 +13,10 @@ RichText getRichText(BuildContext context, String text1, String text2) {
         ),
         TextSpan(
           text: text2,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
         ),
       ],
     ),

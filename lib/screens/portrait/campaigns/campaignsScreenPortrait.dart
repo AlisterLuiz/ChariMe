@@ -154,28 +154,30 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                             ),
                           );
                         },
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text((i + 1).toString()),
-                            // sizedBox(0, 25),
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+                        title: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Row(
+                            children: <Widget>[
+                              Text((i + 1).toString()),
+                              sizedBox(0, 10),
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      Theme.of(context).canvasColor,
+                                  backgroundImage: NetworkImage(
+                                      'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                                ),
                               ),
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Theme.of(context).canvasColor,
-                                backgroundImage: NetworkImage(
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                              sizedBox(0, 10),
+                              AutoSizeText(
+                                'Campaign Name',
+                                maxLines: 2,
                               ),
-                            ),
-                            // SizedBox(width: 20),
-                            AutoSizeText(
-                              'Campaign Name',
-                              maxLines: 2,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         trailing: Text(
                           '\$100,421',
