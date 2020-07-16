@@ -19,6 +19,7 @@ export 'package:image_picker/image_picker.dart';
 // Models
 export 'package:ChariMe/models/themeModel.dart';
 export 'package:ChariMe/models/homeViewModel.dart';
+export 'package:ChariMe/models/campaignsModel.dart';
 
 //Utilities
 export 'package:ChariMe/utilities/routes.dart';

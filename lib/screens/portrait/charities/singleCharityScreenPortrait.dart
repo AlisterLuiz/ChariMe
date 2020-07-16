@@ -14,6 +14,8 @@ class CharityScreenPortrait extends StatefulWidget {
 
 class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: ListView(
@@ -139,7 +141,7 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
                 sizedBox(5, 0),
                 getCampaignsList(context, () {
                   setState(() {});
-                }),
+                }, campaigns),
                 sizedBox(10, 0),
                 getHomeHeader(context, 'Similar Charities',
                     'Campaigns similar to ${widget.charityName}!'),

@@ -17,6 +17,8 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
   bool isLoading = false;
 
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -70,7 +72,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                         sizedBox(10, 0),
                         getCampaignsList(context, () {
                           setState(() {});
-                        }),
+                        }, campaigns),
                       ],
                     ),
                   ),
@@ -91,7 +93,10 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                               (screenHeight(context) * 0.35),
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return getCampaignCard(context);
+                          return getCampaignCard(
+                            context,
+                            campaigns[index],
+                          );
                         }),
                   ),
                   filter: (filter) => [],
@@ -100,7 +105,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                     () {
                       setState(() {});
                     },
-                  ),
+                  campaigns),
                 ),
               );
             },
@@ -118,7 +123,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                 'Campaigns trending worldwide right now!'),
             getCampaignsList(context, () {
               setState(() {});
-            }),
+            }, campaigns),
             sizedBox(10, 0),
             getHomeHeader(context, 'Most Popular Campaigns',
                 'Campaigns that have raised the most money!'),

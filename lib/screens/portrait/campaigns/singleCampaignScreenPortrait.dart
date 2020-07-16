@@ -5,12 +5,13 @@ class CampaignScreenPortrait extends StatefulWidget {
   final String campaignName;
   final String charityImage;
   final String charityName;
-
+  final String desc;
   CampaignScreenPortrait(
       {this.campaignImage,
       this.campaignName,
       this.charityName,
-      this.charityImage});
+      this.charityImage,
+      this.desc});
 
   @override
   _CampaignScreenPortraitState createState() => _CampaignScreenPortraitState();
@@ -18,6 +19,8 @@ class CampaignScreenPortrait extends StatefulWidget {
 
 class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: ListView(
@@ -98,8 +101,6 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                 sizedBox(10, 0),
                 getCharityRow(context, widget.charityName),
                 sizedBox(10, 0),
-                getCharityRow(context, widget.charityName),
-                sizedBox(10, 0),
                 getHomeHeader(
                   context,
                   'About',
@@ -107,7 +108,7 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                 ),
                 sizedBox(10, 0),
                 Text(
-                  'Ad cupidatat deserunt pariatur et velit nisi cupidatat dolore qui mollit. Veniam consectetur aute excepteur exercitation irure eiusmod fugiat. Sint laboris enim ea aliqua amet ad veniam sunt sunt enim ad ea aliquip. Nulla tempor adipisicing elit labore enim proident.',
+                  widget.desc,
                   textAlign: TextAlign.justify,
                 ),
                 sizedBox(10, 0),
@@ -124,7 +125,7 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                 sizedBox(5, 0),
                 getCampaignsList(context, () {
                   setState(() {});
-                }),
+                }, campaigns),
               ],
             ),
           ),

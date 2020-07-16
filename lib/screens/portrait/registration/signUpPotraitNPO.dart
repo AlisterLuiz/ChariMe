@@ -1,4 +1,4 @@
-import 'package:ChariMe/backend/register.dart';
+import 'package:ChariMe/services/register.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class SignUpPortraitNPO extends StatefulWidget {

@@ -1,19 +1,19 @@
 import 'package:ChariMe/utilities/index.dart';
 
-Container getCampaignsList(BuildContext context, Function setState) {
+Container getCampaignsList(BuildContext context, Function setState, List list) {
   return Container(
     height: screenHeight(context) * 0.3,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 5,
+      itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
-        return getCampaignCard(context);
+        return getCampaignCard(context, list[index]);
       },
     ),
   );
 }
 
-FittedBox getCampaignCard(BuildContext context) {
+FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
   return FittedBox(
     fit: BoxFit.fitHeight,
     child: InkWell(
@@ -26,8 +26,9 @@ FittedBox getCampaignCard(BuildContext context) {
                   'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
               charityImage:
                   'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-              campaignName: 'Campaign Name',
-              charityName: 'Charity Name',
+              campaignName: campaign.campTitle,
+              charityName: campaign.hostedByNPO,
+              desc: campaign.campDescription,
             ),
           ),
         );
@@ -64,7 +65,7 @@ FittedBox getCampaignCard(BuildContext context) {
                       children: [
                         sizedBox(2, 0),
                         Text(
-                          'Charity Name',
+                          campaign.hostedByNPO,
                           style: TextStyle(
                             fontSize: 11,
                             color: Theme.of(context).secondaryHeaderColor,
@@ -74,7 +75,7 @@ FittedBox getCampaignCard(BuildContext context) {
                           maxLines: 1,
                         ),
                         AutoSizeText(
-                          'Campaign Name',
+                          campaign.campTitle,
                           maxLines: 2,
                           style: TextStyle(
                             // fontSize: 15,

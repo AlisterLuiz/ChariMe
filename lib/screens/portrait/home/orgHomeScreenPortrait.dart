@@ -1,5 +1,4 @@
-import 'package:ChariMe/backend/addNewCampaign.dart';
-import 'package:ChariMe/backend/dbServices.dart';
+import 'package:ChariMe/services/dbServices.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class OrgHomeScreenPortrait extends StatefulWidget {
@@ -8,8 +7,8 @@ class OrgHomeScreenPortrait extends StatefulWidget {
 }
 
 class _OrgHomeScreenPortraitState extends State<OrgHomeScreenPortrait> {
-  @override
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
@@ -72,7 +71,7 @@ class _OrgHomeScreenPortraitState extends State<OrgHomeScreenPortrait> {
                             (screenHeight(context) * 0.35),
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return getCampaignCard(context);
+                        return getCampaignCard(context, campaigns[index]);
                       }),
                 ],
               ),

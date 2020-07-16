@@ -11,6 +11,7 @@ class _OrgHistoryCampaignsState extends State<OrgHistoryCampaigns> {
   List<bool> isSelected = [true, false, false];
 
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -65,7 +66,7 @@ class _OrgHistoryCampaignsState extends State<OrgHistoryCampaigns> {
                         sizedBox(10, 0),
                         getCampaignsList(context, () {
                           setState(() {});
-                        }),
+                        }, campaigns),
                       ],
                     ),
                   ),
@@ -86,7 +87,7 @@ class _OrgHistoryCampaignsState extends State<OrgHistoryCampaigns> {
                               (screenHeight(context) * 0.35),
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return getCampaignCard(context);
+                          return getCampaignCard(context, campaigns[index]);
                         }),
                   ),
                   filter: (filter) => [],
@@ -95,6 +96,7 @@ class _OrgHistoryCampaignsState extends State<OrgHistoryCampaigns> {
                     () {
                       setState(() {});
                     },
+                    campaigns,
                   ),
                 ),
               );
@@ -180,7 +182,7 @@ class _OrgHistoryCampaignsState extends State<OrgHistoryCampaigns> {
                             (screenHeight(context) * 0.35),
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return getCampaignCard(context);
+                        return getCampaignCard(context, campaigns[index]);
                       }),
                 ],
               ),

@@ -1,10 +1,11 @@
 import 'package:ChariMe/providers/usernameProvider.dart';
+import 'package:ChariMe/services/dbServices.dart';
 import 'package:ChariMe/utilities/index.dart';
 import 'package:device_preview/device_preview.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   runApp(
     ChangeNotifierProvider<ThemeModel>(
       create: (BuildContext context) => ThemeModel(),
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<UserNameProvider>(
           create: (context) => UserNameProvider(),
+        ),
+        FutureProvider<List<Campaigns>>.value(
+          value: getAllCampaigns(),
         ),
       ],
       child: MaterialApp(

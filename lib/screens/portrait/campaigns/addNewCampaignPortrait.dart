@@ -1,4 +1,4 @@
-import 'package:ChariMe/backend/addNewCampaign.dart';
+import 'package:ChariMe/services/addNewCampaign.dart';
 import 'package:ChariMe/providers/usernameProvider.dart';
 import 'package:ChariMe/utilities/index.dart';
 

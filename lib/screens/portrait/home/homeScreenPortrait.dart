@@ -14,6 +14,8 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
   ];
 
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
@@ -111,14 +113,14 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                   sizedBox(5, 0),
                   getCampaignsList(context, () {
                     setState(() {});
-                  }),
+                  }, campaigns),
                   sizedBox(5, 0),
                   getHomeHeader(context, 'New Campaigns',
                       'Latest and Uprising Campaigns!'),
                   sizedBox(5, 0),
                   getCampaignsList(context, () {
                     setState(() {});
-                  }),
+                  }, campaigns),
                   sizedBox(5, 0),
                 ],
               ),
