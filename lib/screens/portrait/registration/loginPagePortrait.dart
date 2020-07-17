@@ -1,3 +1,4 @@
+import 'package:ChariMe/services/dbServices.dart';
 import 'package:ChariMe/services/login.dart';
 import 'package:ChariMe/providers/usernameProvider.dart';
 import 'package:ChariMe/utilities/index.dart';
@@ -94,6 +95,7 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                                  Routes.orgnavigationScreenPortrait,
                                );
                              } else {
+                               getUserInfo(username);
                                Navigator.pushNamed(
                                  context,
                                  Routes.navigationScreenPortrait,

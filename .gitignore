@@ -24,3 +24,5 @@ ios/
 *.lock
 *.xcodeproj
 *.xcworkspace
+
+*.xml

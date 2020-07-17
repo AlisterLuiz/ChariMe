@@ -1,3 +1,5 @@
+import 'package:ChariMe/models/userModel.dart';
+import 'package:ChariMe/providers/usernameProvider.dart';
 import 'package:ChariMe/utilities/index.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -20,6 +22,7 @@ Future<List<Campaigns>> getAllCampaigns() async {
       var campDictionary = Campaigns(
         campTitle: '${row[1]}',
         campDescription: '${row[2]}',
+        isActive: row[3] == 1 ? true : false,
         hostedByNPO: '${row[4]}',
       );
       allCampaigns.add(campDictionary);
@@ -31,4 +34,44 @@ Future<List<Campaigns>> getAllCampaigns() async {
 
   conn.close();
   return allCampaigns;
+}
+
+
+
+Future<User> getUserInfo(String username) async {
+  User loggedInUser;
+  print("started");
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  try {
+    print("Trying to fetch data for the user information.");
+    var results = await conn.query('select * from users where username = ?', [username]);
+    for (var row in results) {
+      print(row);
+      loggedInUser = User(
+        username: username,
+        fullName: '${row[1]}',
+      );
+    }
+    var donations = await conn.query('SELECT SUM(amount) FROM donations WHERE username = ?', [username]);
+    for (var row in donations) {
+      loggedInUser.totalDonated = row[0];
+    }
+
+    print(loggedInUser.username);
+    print(loggedInUser.fullName);
+    print(loggedInUser.totalDonated);
+  } catch (e) {
+    print(e);
+  }
+
+  conn.close();
+  return loggedInUser;
 }
