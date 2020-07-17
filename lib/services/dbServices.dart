@@ -18,11 +18,13 @@ Future<List<Campaigns>> getAllCampaigns() async {
     print("Trying to fetch data.");
     var results = await conn.query('select * from campaigns');
     for (var row in results) {
+      print(row);
       var campDictionary = Campaigns(
         campTitle: '${row[1]}' ?? '',
         campDescription: '${row[2]}' ?? '',
         isActive: row[3] == 1 ? true : false,
         hostedByNPO: '${row[4]}' ?? '',
+        bannerImage: '${row[5] ?? ''}'
       );
       allCampaigns.add(campDictionary);
     }
