@@ -1,8 +1,10 @@
+import 'package:ChariMe/models/userModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class ProfileScreenPortrait extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 20,
@@ -31,7 +33,7 @@ class ProfileScreenPortrait extends StatelessWidget {
               ),
               sizedBox(10, 0),
               Text(
-                'Haris Foley',
+                user.fullName,
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w500,
@@ -39,7 +41,7 @@ class ProfileScreenPortrait extends StatelessWidget {
               ),
               sizedBox(5, 0),
               Text(
-                '\$2350 Donated',
+                '\$${user.totalDonated} Donated',
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                   fontSize: 23,
@@ -90,6 +92,4 @@ class ProfileScreenPortrait extends StatelessWidget {
       ),
     );
   }
-
-  
 }

@@ -1,5 +1,4 @@
 import 'package:ChariMe/providers/usernameProvider.dart';
-import 'package:ChariMe/services/dbServices.dart';
 import 'package:ChariMe/utilities/index.dart';
 import 'package:device_preview/device_preview.dart';
 

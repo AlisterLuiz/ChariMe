@@ -98,3 +98,6 @@ export 'package:ChariMe/widgets/settingsTile.dart';
 export 'package:ChariMe/widgets/richText.dart';
 export 'package:ChariMe/widgets/graphs/lineChartHistory.dart';
 export 'package:ChariMe/widgets/webView.dart';
+
+// Services
+export 'package:ChariMe/services/dbServices.dart';
