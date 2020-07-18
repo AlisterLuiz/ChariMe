@@ -49,8 +49,8 @@ class _OrgProfileScreenPortraitState extends State<OrgProfileScreenPortrait> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  getCharityDetailsCard(context, 'Successful Campaigns', '30'),
-                  getCharityDetailsCard(context, 'Current Campaigns', '15'),
+                  getCharityDetailsCard(context, 'Successful Campaigns', '${npo.numInactiveCampaigns}'),
+                  getCharityDetailsCard(context, 'Current Campaigns', '${npo.numActiveCampaigns}'),
                 ],
               ),
               Container(
@@ -88,7 +88,7 @@ class _OrgProfileScreenPortraitState extends State<OrgProfileScreenPortrait> {
                     ),
                     sizedBox(10, 0),
                     Text(
-                      'Ad cupidatat deserunt pariatur et velit nisi cupidatat dolore qui mollit. Veniam consectetur aute excepteur exercitation irure eiusmod fugiat. Sint laboris enim ea aliqua amet ad veniam sunt sunt enim ad ea aliquip. Nulla tempor adipisicing elit labore enim proident.',
+                      npo.npoDescription,
                     ),
                   ],
                 ),
