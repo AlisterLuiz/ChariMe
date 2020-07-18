@@ -12,12 +12,14 @@ class _SignUpPortraitState extends State<SignUpPortraitNPO> {
   TextEditingController usernameController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   TextEditingController regionController = new TextEditingController();
+  TextEditingController npoDescriptionController = new TextEditingController();
 
   String name = '';
   String emailID = '';
   String username = '';
   String password = '';
   String region = '';
+  String npoDescription = '';
 
 
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _SignUpPortraitState extends State<SignUpPortraitNPO> {
                   Navigator.pop(context);
                 }),
                 Expanded(
-                  flex: 4,
+                  flex: 7,
                   child: Column(
                     children: [
                       CustomTextField(
@@ -94,6 +96,19 @@ class _SignUpPortraitState extends State<SignUpPortraitNPO> {
                       ),
                       sizedBox(15, 0),
                       CustomTextField(
+                        labelText: 'Description',
+                        controller: npoDescriptionController,
+                        type: TextInputType.text,
+                        func: (value) {
+                          setState(
+                                () {
+                              npoDescription = value;
+                            },
+                          );
+                        },
+                      ),
+                      sizedBox(15, 0),
+                      CustomTextField(
                         labelText: 'Region',
                         controller: regionController,
                         type: TextInputType.text,
@@ -106,6 +121,7 @@ class _SignUpPortraitState extends State<SignUpPortraitNPO> {
                         },
                       ),
                       sizedBox(15, 0),
+
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
@@ -128,7 +144,7 @@ class _SignUpPortraitState extends State<SignUpPortraitNPO> {
                         context,
                         'SIGN UP',
                             () {
-                          registerNPO(name, emailID, username, password, region);
+                          registerNPO(name, emailID, username, password, region, npoDescription);
                           Navigator.pushNamed(
                             context,
                             Routes.otpScreenPortrait,

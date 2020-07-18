@@ -34,7 +34,7 @@ Future<void> register(String name, String emailID, String username, String passw
 
 }
 
-Future<void> registerNPO(String name, String emailID, String username, String password, String region) async {
+Future<void> registerNPO(String name, String emailID, String username, String password, String region, String npoDescription) async {
 
   var settings = new ConnectionSettings(
       host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
@@ -47,7 +47,7 @@ Future<void> registerNPO(String name, String emailID, String username, String pa
 
   try{
     await conn.query('insert into login (username, password) values (?, ?)', [username, hashPassword(password)]);
-    await conn.query('insert into non_profit (username, name, emailID, country) values (?, ?, ?, ?)', [username, name, emailID, region]);
+    await conn.query('insert into non_profit (username, name, emailID, country, description) values (?, ?, ?, ?, ?)', [username, name, emailID, region, npoDescription]);
 
 
     print("NAME: " + name + " USERNAME: " + username + " successfully registered in the database.");

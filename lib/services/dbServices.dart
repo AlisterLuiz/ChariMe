@@ -98,7 +98,8 @@ Future<NPO> getNpoInfo(String username) async {
       loggedInNpo = NPO(
         username: username ?? '',
         name: '${row[1]}' ?? '',
-        region: '${row[2]}' ?? ''
+        region: '${row[2]}' ?? '',
+        npoDescription: '${row[3]}'
 
       );
     }

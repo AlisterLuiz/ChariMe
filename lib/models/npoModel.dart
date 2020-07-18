@@ -7,12 +7,14 @@ class NPO{
   double totalMoneyRaised;
   int numActiveCampaigns;       // active : current campaigns
   int numInactiveCampaigns;     // inactive : successful campaigns
+  String npoDescription;
   NPO({
     @required this.username,
     @required this.name,
     @required this.region,
     @required this.totalMoneyRaised,
     @required this.numActiveCampaigns,
-    @required this.numInactiveCampaigns
+    @required this.numInactiveCampaigns,
+    @required this.npoDescription
 });
 }
