@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/services/dbServices.dart';
 import 'package:ChariMe/utilities/index.dart';
 
@@ -8,6 +9,7 @@ class OrgHomeScreenPortrait extends StatefulWidget {
 
 class _OrgHomeScreenPortraitState extends State<OrgHomeScreenPortrait> {
   Widget build(BuildContext context) {
+    NPO npo = Provider.of<NPO>(context);
     List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -31,7 +33,7 @@ class _OrgHomeScreenPortraitState extends State<OrgHomeScreenPortrait> {
                 ),
                 sizedBox(15, 0),
                 Text(
-                  '\$1,023,141',
+                  '\$'+'${npo.totalMoneyRaised}',
                   style: TextStyle(
                     fontSize: 23,
                     color: Theme.of(context).accentColor,
