@@ -18,6 +18,7 @@ class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       _image = File(pickedFile.path);
+      uploadImage(_image);
     });
   }
 

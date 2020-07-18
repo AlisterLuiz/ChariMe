@@ -3,7 +3,58 @@ import 'dart:math';
 import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/models/userModel.dart';
 import 'package:ChariMe/utilities/index.dart';
+import 'package:aws_s3/aws_s3.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:path/path.dart';
+
+/// Used for AWS connection
+
+/*
+Uploads an image to the S3 bucket and links the file with the
+associated table entry in the database
+*/
+Future<bool> uploadImage(File image) async {
+  var aws_path = 'https://db-images-link.s3.us-east-2.amazonaws.com';
+  var filename = basename(image.path);
+  String result;
+  var returnType = false;
+  AwsS3 awsS3 = AwsS3(
+      awsFolderPath: aws_path,
+      file: image,
+      fileNameWithExt: filename,
+      poolId: "your aws pool id",
+      region: Regions.US_EAST_2,
+      bucketName: "db-images-link");
+
+  try {
+    try {
+      result = await awsS3.uploadFile;
+      debugPrint("Result :'$result'.");
+    }
+    on PlatformException {
+      debugPrint("Result :'$result'.");
+    }
+  } on PlatformException catch (e) {
+    debugPrint("Failed :'${e.message}'.");
+  }
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  var image_s3_path = '$aws_path/$filename';
+  try {
+    var res = conn.query('insert into campaigns (bannerImage) values "$image_s3_path"');
+    returnType = true;
+  }
+  catch (e) { print("error linking to db: $e"); }
+
+  return returnType;
+}
 
 Future<List<Campaigns>> getAllCampaigns() async {
   Map<String, Campaigns> mapCampaigns = {};
