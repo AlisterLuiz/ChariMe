@@ -15,7 +15,6 @@ Container getCampaignsList(BuildContext context, Function setState, List list) {
 
 FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
   return FittedBox(
-    fit: BoxFit.fitHeight,
     child: InkWell(
       onTap: () {
         Navigator.push(
