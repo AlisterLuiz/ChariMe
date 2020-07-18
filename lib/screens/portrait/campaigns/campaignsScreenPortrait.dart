@@ -85,7 +85,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                       vertical: 20,
                     ),
                     child: GridView.builder(
-                        itemCount: 5,
+                        itemCount: campaigns.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: screenWidth(context) *
