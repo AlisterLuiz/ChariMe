@@ -133,7 +133,6 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
                 sizedBox(10, 0),
                 Text(
                   'Ad cupidatat deserunt pariatur et velit nisi cupidatat dolore qui mollit. Veniam consectetur aute excepteur exercitation irure eiusmod fugiat. Sint laboris enim ea aliqua amet ad veniam sunt sunt enim ad ea aliquip. Nulla tempor adipisicing elit labore enim proident.',
-                  textAlign: TextAlign.justify,
                 ),
                 sizedBox(10, 0),
                 getHomeHeader(context, 'Current Campaigns',

@@ -109,7 +109,6 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                 sizedBox(10, 0),
                 Text(
                   widget.desc,
-                  textAlign: TextAlign.justify,
                 ),
                 sizedBox(10, 0),
                 getHomeHeader(

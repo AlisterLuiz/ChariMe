@@ -62,7 +62,7 @@ class _OrgHomeScreenPortraitState extends State<OrgHomeScreenPortrait> {
                   sizedBox(5, 0),
                   GridView.builder(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: (campaigns.length > 5) ? 5 : campaigns.length,
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,

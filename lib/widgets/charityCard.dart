@@ -65,7 +65,6 @@ InkWell getCharityCard(BuildContext context) {
                       fontWeight: FontWeight.w700,
                     ),
                     overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.justify,
                   ),
                 ),
               ],

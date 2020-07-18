@@ -3,7 +3,9 @@ import 'package:ChariMe/utilities/index.dart';
 import 'package:mysql1/mysql1.dart';
 
 Future<List<Campaigns>> getAllCampaigns() async {
+  Map<String, Campaigns> mapCampaigns = {};
   List<Campaigns> allCampaigns = [];
+
   print("started");
 
   var settings = new ConnectionSettings(
@@ -20,14 +22,16 @@ Future<List<Campaigns>> getAllCampaigns() async {
     for (var row in results) {
       print(row);
       var campDictionary = Campaigns(
-        campTitle: '${row[1]}' ?? '',
-        campDescription: '${row[2]}' ?? '',
-        isActive: row[3] == 1 ? true : false,
-        hostedByNPO: '${row[4]}' ?? '',
-        bannerImage: '${row[5] ?? ''}'
-      );
-      allCampaigns.add(campDictionary);
+          campTitle: '${row[1]}' ?? '',
+          campDescription: '${row[2]}' ?? '',
+          isActive: row[3] == 1 ? true : false,
+          hostedByNPO: '${row[4]}' ?? '',
+          bannerImage: '${row[5] ?? ''}');
+      mapCampaigns['${row[1]}'] = campDictionary;
     }
+    mapCampaigns.forEach((key, value) {
+      allCampaigns.add(value);
+    });
     print(allCampaigns);
   } catch (e) {
     print(e);

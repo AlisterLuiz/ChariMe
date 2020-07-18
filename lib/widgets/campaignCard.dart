@@ -22,8 +22,7 @@ FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
           context,
           MaterialPageRoute(
             builder: (context) => CampaignScreenPortrait(
-              campaignImage:
-                  'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
+              campaignImage: campaign.bannerImage,
               charityImage:
                   'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
               campaignName: campaign.campTitle,
@@ -71,7 +70,6 @@ FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
                             color: Theme.of(context).secondaryHeaderColor,
                           ),
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.justify,
                           maxLines: 1,
                         ),
                         AutoSizeText(
@@ -82,7 +80,6 @@ FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
                             fontWeight: FontWeight.w700,
                           ),
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.justify,
                         ),
                         sizedBox(2, 0),
                       ],

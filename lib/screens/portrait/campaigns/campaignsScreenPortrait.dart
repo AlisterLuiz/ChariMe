@@ -127,7 +127,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
             sizedBox(10, 0),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: 5,
+              itemCount: (campaigns.length > 5) ? 5 : campaigns.length,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, i) {
                 return Column(
