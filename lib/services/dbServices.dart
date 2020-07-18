@@ -68,7 +68,7 @@ Future<User> getUserInfo(String username) async {
     var donations = await conn.query(
         'SELECT SUM(amount) FROM donations WHERE username = ?', [username]);
     for (var row in donations) {
-      loggedInUser.totalDonated = row[0];
+      loggedInUser.totalDonated =  row[0].runtimeType == Null ? 0 : row[0];
     }
   } catch (e) {
     print(e);
