@@ -183,7 +183,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           ],
                         ),
                         trailing: Text(
-                          '\$100,421',
+                          '\$'+"${campaigns[i].totalMoneyRaised}",
                           style: TextStyle(
                             color: Theme.of(context).accentColor,
                           ),

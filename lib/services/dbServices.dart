@@ -23,22 +23,34 @@ Future<List<Campaigns>> getAllCampaigns() async {
     print("Trying to fetch data.");
     var results = await conn.query('select * from campaigns');
     for (var row in results) {
-//      print(row);
+      var campSum = await conn.query('select sum(amount) from donations where campaignID =?', [row[0]]);
+      double sum = 0;
+      for (var s in campSum){
+        sum = s[0];
+
+      }
       var campDictionary = Campaigns(
           campTitle: '${row[1]}' ?? '',
           campDescription: '${row[2]}' ?? '',
           isActive: row[3] == 1 ? true : false,
           hostedByNPO: '${row[4]}' ?? '',
-          bannerImage: '${row[5] ?? ''}');
+          bannerImage: '${row[5] ?? ''}',
+          totalMoneyRaised: sum.runtimeType == Null ? 0.0 : sum,
+      );
       mapCampaigns['${row[1]}'] = campDictionary;
     }
     mapCampaigns.forEach((key, value) {
+
       allCampaigns.add(value);
     });
 //    print(allCampaigns);
   } catch (e) {
     print(e);
   }
+
+//  for (var camps in allCampaigns){
+//    print(camps.hostedByNPO + ': '+ '${camps.totalMoneyRaised}');
+//  }
 
   conn.close();
   return allCampaigns;
@@ -112,7 +124,7 @@ Future<NPO> getNpoInfo(String username) async {
     var activeCamps = await conn.query(
         'select count(campaignID) from campaigns where campaigns.isActive = 1 and campaigns.username = ?', [username]);
     for (var row in activeCamps) {
-      print(row[0]);
+//      print(row[0]);
       loggedInNpo.numActiveCampaigns = row[0] ?? 0;
     }
 
@@ -131,8 +143,8 @@ Future<NPO> getNpoInfo(String username) async {
 
   conn.close();
   print("info gathered: " +loggedInNpo.username + " " + loggedInNpo.region + " " + loggedInNpo.name);
-  print(loggedInNpo.totalMoneyRaised);
-  print((loggedInNpo.numActiveCampaigns));
-  print((loggedInNpo.numInactiveCampaigns));
+//  print(loggedInNpo.totalMoneyRaised);
+//  print((loggedInNpo.numActiveCampaigns));
+//  print((loggedInNpo.numInactiveCampaigns));
   return loggedInNpo;
 }
