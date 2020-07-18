@@ -102,6 +102,27 @@ Future<NPO> getNpoInfo(String username) async {
 
       );
     }
+    var donations = await conn.query(
+        'select sum(donations.amount) from donations, campaigns where donations.campaignID = campaigns.campaignID and campaigns.username = ?', [username]);
+    for (var row in donations) {
+      loggedInNpo.totalMoneyRaised = row[0] ?? 0;
+    }
+
+    var activeCamps = await conn.query(
+        'select count(campaignID) from campaigns where campaigns.isActive = 1 and campaigns.username = ?', [username]);
+    for (var row in activeCamps) {
+      print(row[0]);
+      loggedInNpo.numActiveCampaigns = row[0] ?? 0;
+    }
+
+    var inactiveCamps = await conn.query(
+        'select count(campaignID) from campaigns where campaigns.isActive = 0 and campaigns.username = ?', [username]);
+    for (var row in inactiveCamps) {
+      loggedInNpo.numInactiveCampaigns = row[0] ?? 0;
+    }
+
+
+
 
   } catch (e) {
     print(e);
@@ -109,5 +130,8 @@ Future<NPO> getNpoInfo(String username) async {
 
   conn.close();
   print("info gathered: " +loggedInNpo.username + " " + loggedInNpo.region + " " + loggedInNpo.name);
+  print(loggedInNpo.totalMoneyRaised);
+  print((loggedInNpo.numActiveCampaigns));
+  print((loggedInNpo.numInactiveCampaigns));
   return loggedInNpo;
 }
