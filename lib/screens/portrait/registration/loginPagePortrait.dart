@@ -89,6 +89,7 @@ class _LoginPagePortraitState extends State<LoginPagePortrait> {
                            if (await verify(username, password)) {
                              Provider.of<UserNameProvider>(context, listen: false).setUsername(username);
                              if (await checkAccountType(username)){
+                               getNpoInfo(username);
                                Navigator.pushNamed(
                                  context,
                                  Routes.orgnavigationScreenPortrait,

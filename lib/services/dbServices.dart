@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/models/userModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 import 'package:mysql1/mysql1.dart';
@@ -20,7 +23,7 @@ Future<List<Campaigns>> getAllCampaigns() async {
     print("Trying to fetch data.");
     var results = await conn.query('select * from campaigns');
     for (var row in results) {
-      print(row);
+//      print(row);
       var campDictionary = Campaigns(
           campTitle: '${row[1]}' ?? '',
           campDescription: '${row[2]}' ?? '',
@@ -32,7 +35,7 @@ Future<List<Campaigns>> getAllCampaigns() async {
     mapCampaigns.forEach((key, value) {
       allCampaigns.add(value);
     });
-    print(allCampaigns);
+//    print(allCampaigns);
   } catch (e) {
     print(e);
   }
@@ -73,4 +76,38 @@ Future<User> getUserInfo(String username) async {
 
   conn.close();
   return loggedInUser;
+}
+
+Future<NPO> getNpoInfo(String username) async {
+  print("NPO started");
+  NPO loggedInNpo;
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  try {
+    print("Trying to fetch data for the NPO information.");
+    var results =
+    await conn.query('select * from non_profit where username = ?', [username]);
+    for (var row in results) {
+      loggedInNpo = NPO(
+        username: username ?? '',
+        name: '${row[1]}' ?? '',
+        region: '${row[2]}' ?? ''
+
+      );
+    }
+
+  } catch (e) {
+    print(e);
+  }
+
+  conn.close();
+  print("info gathered: " +loggedInNpo.username + " " + loggedInNpo.region + " " + loggedInNpo.name);
+  return loggedInNpo;
 }
