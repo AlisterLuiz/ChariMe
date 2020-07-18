@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class OrgProfileScreenPortrait extends StatefulWidget {
@@ -9,6 +10,7 @@ class OrgProfileScreenPortrait extends StatefulWidget {
 class _OrgProfileScreenPortraitState extends State<OrgProfileScreenPortrait> {
   @override
   Widget build(BuildContext context) {
+    NPO npo = Provider.of<NPO>(context);
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 20,
@@ -37,7 +39,7 @@ class _OrgProfileScreenPortraitState extends State<OrgProfileScreenPortrait> {
               ),
               sizedBox(10, 0),
               Text(
-                'Charity Name',
+                npo.name,
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w500,
@@ -74,7 +76,7 @@ class _OrgProfileScreenPortraitState extends State<OrgProfileScreenPortrait> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               getRichText(
-                                  context, 'Country of Origin: ', 'USA'),
+                                  context, 'Country of Origin: ', npo.region),
                               sizedBox(0, 2),
                               getRichText(context, 'Founded: ', '1985'),
                             ],
