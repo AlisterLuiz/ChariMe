@@ -1,3 +1,4 @@
+import 'package:ChariMe/screens/portrait/campaigns/donatePage.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class Routes {
@@ -37,6 +38,9 @@ class Routes {
 
   static const String webView = '/webView';
 
+  static const String donatePageLandscape = '/donatePageLandscape';
+  static const String donatePagePortrait = '/donatePagePortrait';
+
   static final routes = <String, WidgetBuilder>{
     myApp: (BuildContext context) => MyApp(),
     homeView: (BuildContext context) => HomeView(),
@@ -46,7 +50,6 @@ class Routes {
     signUpLandscape: (BuildContext context) => SignUpLandscape(),
     signUpPortrait: (BuildContext context) => SignUpPortrait(),
     signUpPortraitNPO: (BuildContext context) => SignUpPortraitNPO(),
-
     otpScreenLandscape: (BuildContext context) => OTPScreenLandscape(),
     otpScreenPortrait: (BuildContext context) => OTPScreenPortrait(),
     navigationScreenLandscape: (BuildContext context) =>
@@ -62,6 +65,8 @@ class Routes {
     settingsPortrait: (BuildContext context) => SettingsPortrait(),
     // addNewCampaignLandscape: (BuildContext context) => AddNewCampaignLandscape(),
     addNewCampaignPortrait: (BuildContext context) => AddNewCampaignPortrait(),
-    webView: (BuildContext context) => MyWebView()
+    webView: (BuildContext context) => MyWebView(),
+    // donatePageLandscape: (BuildContext context) => DonatePageLandscape(),
+    // donatePagePortrait: (BuildContext context) => DonatePagePortrait(),
   };
 }
