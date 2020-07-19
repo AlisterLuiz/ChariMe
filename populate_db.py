@@ -57,6 +57,11 @@ def insert_org(username, name, email, password, desc, country, profile_image, ba
 def insert_campaign(title, desc, isActive, username, bannerImage):
     cursor.execute(f'insert into campaigns (title, description, isActive, username, bannerImage) values ("{title}", "{desc}", {isActive}, "{username}", "{bannerImage}");')
 
+
+def insert_donation(username, campaignID, amount, timestamp):
+    cursor.execute(f'insert into donations (username, campaignID, amount, timestamp) values ("{username}", {campaignID}, {amount}, "{timestamp}");')
+
+
 def populate_users(num_users):
     global names
     f_name = open('NationalNames.csv', 'r')
@@ -142,10 +147,44 @@ def make_campaigns():
         insert_campaign(title, desc, isActive, username, banner)
 
 
+def make_donation():
+    cursor.execute('select * from users')
+    users = cursor.fetchall()
+    cursor.execute('select * from campaigns')
+    campaigns = cursor.fetchall()
+
+    count = 1
+    for user in users:
+        print(f'Working on user {count}')
+        count += 1
+        seed = randrange(1,11)
+
+        # Only approx 70% of users make donations
+        if seed > 7:
+            continue
+
+        # username of user donating
+        username = user[0]
+
+        for campaign in campaigns:
+            seed = randrange(1,11)
+
+            # Users donate to about 40% of charities (maybe too high?)
+            if seed > 4:
+                continue
+
+            campaignID = campaign[0]
+            amount = randrange(5,10000)
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+            insert_donation(username, campaignID, amount, timestamp)
+
+
 if __name__ == '__main__':
     init()
     # clear_data()
     # populate_users(100)
     # populate_non_profits(50)
     # make_campaigns()
+    make_donation()
     db.commit()
