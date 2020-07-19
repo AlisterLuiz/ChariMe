@@ -50,7 +50,7 @@ FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
                 children: [
                   Image(
                     image: NetworkImage(
-                      'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
+                      campaign.bannerImage,
                     ),
                     fit: BoxFit.cover,
                     width: 150,

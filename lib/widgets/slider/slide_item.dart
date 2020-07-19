@@ -6,13 +6,14 @@ class SlideItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
     return Column(
       children: <Widget>[
         Container(
           height: screenHeight(context) * 0.32,
           width: screenWidth(context),
           child: Image.network(
-            slideList[index].imageUrl,
+            campaigns[index+30].bannerImage,
             fit: BoxFit.fill,
           ),
           decoration: BoxDecoration(

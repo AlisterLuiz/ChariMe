@@ -94,7 +94,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                       vertical: 20,
                     ),
                     child: GridView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         itemCount: campaigns.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -172,14 +172,15 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                                 shape: BoxShape.circle,
                               ),
                               child: CircleAvatar(
-                                backgroundColor: Theme.of(context).canvasColor,
+                                backgroundColor:
+                                    Theme.of(context).canvasColor,
                                 backgroundImage: NetworkImage(
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
                               ),
                             ),
                             sizedBox(0, 10),
                             Container(
-                              width: screenWidth(context) * 0.4,
+                              width: screenWidth(context) * 0.35,
                               child: AutoSizeText(
                                 campaigns[i].campTitle,
                                 maxLines: 2,

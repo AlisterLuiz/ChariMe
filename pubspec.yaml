@@ -37,6 +37,7 @@ dependencies:
   image_picker: ^0.6.7+4
   webview_flutter: ^0.3.22+1
   aws_s3_client: ^0.1.1
+  aws_s3: ^0.1.1+hotfix.5
 
   mysql1: ^0.17.1
 

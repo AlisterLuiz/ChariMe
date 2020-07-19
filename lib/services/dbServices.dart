@@ -6,7 +6,6 @@ import 'package:ChariMe/models/userModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 import 'package:aws_s3_client/aws_s3_client.dart';
 import 'package:mysql1/mysql1.dart';
-import 'package:path/path.dart';
 
 /*
 Uploads an image to the S3 bucket and links the file with the
@@ -27,16 +26,16 @@ Future<String> uploadImage(File image, String id, String tableName) async {
   // Uploads the image to the S3 bucket and gets the associated image path
   try {
     Spaces spaces = Spaces(
-        region: "us-east-2",
-        accessKey: 'AKIA3CR2WLZR33PXWCNL',
-        secretKey: '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',
+      region: "us-east-2",
+      accessKey: 'AKIA3CR2WLZR33PXWCNL',
+      secretKey: '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',
     );
 
     Bucket bucket = spaces.bucket('db-images-link');
-    String res = await bucket.uploadFile(image.path, image.readAsBytesSync(), 'image', Permissions.public);
+    String res = await bucket.uploadFile(
+        image.path, image.readAsBytesSync(), 'image', Permissions.public);
     image_path = '$aws_path${image.path}';
-  }
-  catch (e) {
+  } catch (e) {
     print("ERROR IS THIS: $e");
   }
 
@@ -48,17 +47,17 @@ Future<String> uploadImage(File image, String id, String tableName) async {
       password: 'willywonka',
       db: 'data');
   var conn = await MySqlConnection.connect(settings);
-  String colType = (tableName == 'campaigns') ? 'bannerImage' : 'profilePicture';
+  String colType =
+      (tableName == 'campaigns') ? 'bannerImage' : 'profilePicture';
   String idType = (tableName == 'campaigns') ? 'title' : 'username';
-  String query = 'update $tableName set $colType = "$image_path" where $idType = "$id"';
+  String query =
+      'update $tableName set $colType = "$image_path" where $idType = "$id"';
   var result = await conn.query(query);
 
   conn.close();
 
   return image_path;
 }
-
-
 
 Future<List<Campaigns>> getAllCampaigns() async {
   Map<String, Campaigns> mapCampaigns = {};
@@ -78,27 +77,25 @@ Future<List<Campaigns>> getAllCampaigns() async {
     print("Trying to fetch data.");
     var results = await conn.query('select * from campaigns');
     for (var row in results) {
-      var campSum = await conn.query('select sum(amount) from donations where campaignID =?', [row[0]]);
+      var campSum = await conn.query(
+          'select sum(amount) from donations where campaignID =?', [row[0]]);
       double sum = 0;
-      for (var s in campSum){
+      for (var s in campSum) {
         sum = s[0];
-
       }
       var campDictionary = Campaigns(
-          campTitle: '${row[1]}' ?? '',
-          campDescription: '${row[2]}' ?? '',
-          isActive: row[3] == 1 ? true : false,
-          hostedByNPO: '${row[4]}' ?? '',
-          bannerImage: '${row[5] ?? ''}',
-          totalMoneyRaised: sum.runtimeType == Null ? 0.0 : sum,
+        campTitle: '${row[1]}' ?? '',
+        campDescription: '${row[2]}' ?? '',
+        isActive: row[3] == 1 ? true : false,
+        hostedByNPO: '${row[4]}' ?? '',
+        bannerImage: '${row[5] ?? ''}',
+        totalMoneyRaised: sum.runtimeType == Null ? 0.0 : sum,
       );
       mapCampaigns['${row[1]}'] = campDictionary;
     }
     mapCampaigns.forEach((key, value) {
-
       allCampaigns.add(value);
     });
-//    print(allCampaigns);
   } catch (e) {
     print(e);
   }
@@ -135,7 +132,7 @@ Future<User> getUserInfo(String username) async {
     var donations = await conn.query(
         'SELECT SUM(amount) FROM donations WHERE username = ?', [username]);
     for (var row in donations) {
-      loggedInUser.totalDonated =  row[0].runtimeType == Null ? 0 : row[0];
+      loggedInUser.totalDonated = row[0].runtimeType == Null ? 0 : row[0];
     }
   } catch (e) {
     print(e);
@@ -159,45 +156,47 @@ Future<NPO> getNpoInfo(String username) async {
 
   try {
     print("Trying to fetch data for the NPO information.");
-    var results =
-    await conn.query('select * from non_profit where username = ?', [username]);
+    var results = await conn
+        .query('select * from non_profit where username = ?', [username]);
     for (var row in results) {
       loggedInNpo = NPO(
-        username: username ?? '',
-        name: '${row[1]}' ?? '',
-        region: '${row[2]}' ?? '',
-        npoDescription: '${row[3]}'
-
-      );
+          username: username ?? '',
+          name: '${row[1]}' ?? '',
+          region: '${row[2]}' ?? '',
+          npoDescription: '${row[3]}');
     }
     var donations = await conn.query(
-        'select sum(donations.amount) from donations, campaigns where donations.campaignID = campaigns.campaignID and campaigns.username = ?', [username]);
+        'select sum(donations.amount) from donations, campaigns where donations.campaignID = campaigns.campaignID and campaigns.username = ?',
+        [username]);
     for (var row in donations) {
       loggedInNpo.totalMoneyRaised = row[0] ?? 0;
     }
 
     var activeCamps = await conn.query(
-        'select count(campaignID) from campaigns where campaigns.isActive = 1 and campaigns.username = ?', [username]);
+        'select count(campaignID) from campaigns where campaigns.isActive = 1 and campaigns.username = ?',
+        [username]);
     for (var row in activeCamps) {
 //      print(row[0]);
       loggedInNpo.numActiveCampaigns = row[0] ?? 0;
     }
 
     var inactiveCamps = await conn.query(
-        'select count(campaignID) from campaigns where campaigns.isActive = 0 and campaigns.username = ?', [username]);
+        'select count(campaignID) from campaigns where campaigns.isActive = 0 and campaigns.username = ?',
+        [username]);
     for (var row in inactiveCamps) {
       loggedInNpo.numInactiveCampaigns = row[0] ?? 0;
     }
-
-
-
-
   } catch (e) {
     print(e);
   }
 
   conn.close();
-  print("info gathered: " +loggedInNpo.username + " " + loggedInNpo.region + " " + loggedInNpo.name);
+  print("info gathered: " +
+      loggedInNpo.username +
+      " " +
+      loggedInNpo.region +
+      " " +
+      loggedInNpo.name);
 //  print(loggedInNpo.totalMoneyRaised);
 //  print((loggedInNpo.numActiveCampaigns));
 //  print((loggedInNpo.numInactiveCampaigns));
@@ -207,7 +206,6 @@ Future<NPO> getNpoInfo(String username) async {
 Future<List<NPO>> getAllNPO() async {
   List<NPO> allNPOs = [];
   print("NPO started");
-
 
   var settings = new ConnectionSettings(
       host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
@@ -226,12 +224,9 @@ Future<List<NPO>> getAllNPO() async {
         region: '${row[2]}' ?? '',
         npoDescription: '${row[3]}' ?? '',
         totalMoneyRaised: 0.0,
-
       );
       allNPOs.add(npo);
     }
-
-
   } catch (e) {
     print(e);
   }
