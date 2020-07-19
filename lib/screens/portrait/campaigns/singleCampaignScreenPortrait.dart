@@ -1,3 +1,4 @@
+import 'package:ChariMe/screens/portrait/campaigns/donatePage.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class CampaignScreenPortrait extends StatefulWidget {
@@ -83,10 +84,15 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                 getButton(
                   context,
                   'DONATE',
-                  () async {
-                    Navigator.pushNamed(
+                  () {
+                    Navigator.push(
                       context,
-                      Routes.webView,
+                      MaterialPageRoute(
+                        builder: (context) => DonatePagePortrait(
+                          campaignName: widget.campaignName,
+                          charityName: widget.charityName,
+                        ),
+                      ),
                     );
                   },
                 ),

@@ -35,7 +35,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: SearchPage(
+                delegate: SearchPage<Campaigns>(
                   barTheme: (Provider.of<ThemeModel>(context, listen: false)
                               .currentTheme ==
                           darkTheme)
@@ -57,7 +57,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           ),
                           fontFamily: 'Montserrat',
                         ),
-                  items: ['Campaign Name', 'Campaign Name', 'Campaign Name'],
+                  items: campaigns.toList(),
                   searchLabel: 'Search Campaigns',
                   suggestion: Container(
                     padding: EdgeInsets.symmetric(
@@ -76,15 +76,25 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                       ],
                     ),
                   ),
-                  // failure: Center(
-                  //   child: Text('No Campaign Found :('),
-                  // ),
-                  failure: Container(
+                  failure: Center(
+                    child: Text('No such campaign found :('),
+                  ),
+                  filter: (campaign) => [
+                    campaign.campTitle,
+                    campaign.campDescription,
+                    campaign.hostedByNPO,
+                    // campaign.isActive,
+                    // campaign.totalMoneyRaised,
+                    // campaign.region,
+                    // campaign.bannerImage
+                  ],
+                  builder: (campaign) => Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 20,
                     ),
                     child: GridView.builder(
+                      shrinkWrap: true,
                         itemCount: campaigns.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -95,14 +105,10 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                         itemBuilder: (BuildContext context, int index) {
                           return getCampaignCard(
                             context,
-                            campaigns[index],
+                            campaign,
                           );
                         }),
                   ),
-                  filter: (filter) => [],
-                  builder: (filter) => getCampaignsList(context, () {
-                    setState(() {});
-                  }, campaigns),
                 ),
               );
             },
@@ -183,7 +189,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                           ],
                         ),
                         trailing: Text(
-                          '\$100,421',
+                          '\$' + "${campaigns[i].totalMoneyRaised}",
                           style: TextStyle(
                             color: Theme.of(context).accentColor,
                           ),

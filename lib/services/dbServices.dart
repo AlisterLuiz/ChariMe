@@ -78,22 +78,34 @@ Future<List<Campaigns>> getAllCampaigns() async {
     print("Trying to fetch data.");
     var results = await conn.query('select * from campaigns');
     for (var row in results) {
-//      print(row);
+      var campSum = await conn.query('select sum(amount) from donations where campaignID =?', [row[0]]);
+      double sum = 0;
+      for (var s in campSum){
+        sum = s[0];
+
+      }
       var campDictionary = Campaigns(
           campTitle: '${row[1]}' ?? '',
           campDescription: '${row[2]}' ?? '',
           isActive: row[3] == 1 ? true : false,
           hostedByNPO: '${row[4]}' ?? '',
-          bannerImage: '${row[5] ?? ''}');
+          bannerImage: '${row[5] ?? ''}',
+          totalMoneyRaised: sum.runtimeType == Null ? 0.0 : sum,
+      );
       mapCampaigns['${row[1]}'] = campDictionary;
     }
     mapCampaigns.forEach((key, value) {
+
       allCampaigns.add(value);
     });
 //    print(allCampaigns);
   } catch (e) {
     print(e);
   }
+
+//  for (var camps in allCampaigns){
+//    print(camps.hostedByNPO + ': '+ '${camps.totalMoneyRaised}');
+//  }
 
   conn.close();
   return allCampaigns;
@@ -123,7 +135,7 @@ Future<User> getUserInfo(String username) async {
     var donations = await conn.query(
         'SELECT SUM(amount) FROM donations WHERE username = ?', [username]);
     for (var row in donations) {
-      loggedInUser.totalDonated = row[0];
+      loggedInUser.totalDonated =  row[0].runtimeType == Null ? 0 : row[0];
     }
   } catch (e) {
     print(e);
@@ -167,7 +179,7 @@ Future<NPO> getNpoInfo(String username) async {
     var activeCamps = await conn.query(
         'select count(campaignID) from campaigns where campaigns.isActive = 1 and campaigns.username = ?', [username]);
     for (var row in activeCamps) {
-      print(row[0]);
+//      print(row[0]);
       loggedInNpo.numActiveCampaigns = row[0] ?? 0;
     }
 
@@ -186,8 +198,44 @@ Future<NPO> getNpoInfo(String username) async {
 
   conn.close();
   print("info gathered: " +loggedInNpo.username + " " + loggedInNpo.region + " " + loggedInNpo.name);
-  print(loggedInNpo.totalMoneyRaised);
-  print((loggedInNpo.numActiveCampaigns));
-  print((loggedInNpo.numInactiveCampaigns));
+//  print(loggedInNpo.totalMoneyRaised);
+//  print((loggedInNpo.numActiveCampaigns));
+//  print((loggedInNpo.numInactiveCampaigns));
   return loggedInNpo;
+}
+
+Future<List<NPO>> getAllNPO() async {
+  List<NPO> allNPOs = [];
+  print("NPO started");
+
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  try {
+    var results = await conn.query('select * from non_profit');
+    for (var row in results) {
+      var npo = NPO(
+        username: '${row[0]}' ?? '',
+        name: '${row[1]}' ?? '',
+        region: '${row[2]}' ?? '',
+        npoDescription: '${row[3]}' ?? '',
+        totalMoneyRaised: 0.0,
+
+      );
+      allNPOs.add(npo);
+    }
+
+
+  } catch (e) {
+    print(e);
+  }
+
+  conn.close();
+  return allNPOs;
 }
