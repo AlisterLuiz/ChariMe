@@ -152,8 +152,7 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => CampaignScreenPortrait(
-                                campaignImage:
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
+                                campaignImage: campaigns[i].bannerImage,
                                 charityImage:
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
                                 campaignName: campaigns[i].campTitle,
@@ -172,10 +171,9 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                                 shape: BoxShape.circle,
                               ),
                               child: CircleAvatar(
-                                backgroundColor:
-                                    Theme.of(context).canvasColor,
-                                backgroundImage: NetworkImage(
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                                backgroundColor: Theme.of(context).canvasColor,
+                                backgroundImage:
+                                    NetworkImage(campaigns[i].bannerImage),
                               ),
                             ),
                             sizedBox(0, 10),
