@@ -18,7 +18,6 @@ class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       _image = File(pickedFile.path);
-      uploadImage(_image);
     });
   }
 
@@ -109,6 +108,7 @@ class _AddNewCampaignPortraitState extends State<AddNewCampaignPortrait> {
                         'SUBMIT',
                         () async {
                           addCampaign(username, campaignName, description);
+                          var res = await uploadImage(_image, campaignName, 'campaigns');
                           Navigator.pop(context);
                         },
                       ),

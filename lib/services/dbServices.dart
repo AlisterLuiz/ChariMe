@@ -1,43 +1,46 @@
 import 'dart:math';
 
+import 'package:ChariMe/enums/aws_regions.dart';
 import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/models/userModel.dart';
 import 'package:ChariMe/utilities/index.dart';
-import 'package:aws_s3/aws_s3.dart';
+import 'package:aws_s3_client/aws_s3_client.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:path/path.dart';
 
-/// Used for AWS connection
-
 /*
 Uploads an image to the S3 bucket and links the file with the
-associated table entry in the database
-*/
-Future<bool> uploadImage(File image) async {
-  var aws_path = 'https://db-images-link.s3.us-east-2.amazonaws.com';
-  var filename = basename(image.path);
-  String result;
-  var returnType = false;
-  AwsS3 awsS3 = AwsS3(
-      awsFolderPath: aws_path,
-      file: image,
-      fileNameWithExt: filename,
-      poolId: "your aws pool id",
-      region: Regions.US_EAST_2,
-      bucketName: "db-images-link");
+associated table entry in the database.
 
+image: the image being uploaded.
+id: the identifying column entry for the table: e.g. username for users/non_profit,
+    and title for campaigns.
+tableName: the table that should be updated.
+
+
+See lib/screens/portrait/campaigns/addNewCampaignPortrait.dart for example
+*/
+Future<String> uploadImage(File image, String id, String tableName) async {
+  var aws_path = 'https://db-images-link.s3.us-east-2.amazonaws.com/';
+  String image_path = '';
+
+  // Uploads the image to the S3 bucket and gets the associated image path
   try {
-    try {
-      result = await awsS3.uploadFile;
-      debugPrint("Result :'$result'.");
-    }
-    on PlatformException {
-      debugPrint("Result :'$result'.");
-    }
-  } on PlatformException catch (e) {
-    debugPrint("Failed :'${e.message}'.");
+    Spaces spaces = Spaces(
+        region: "us-east-2",
+        accessKey: 'AKIA3CR2WLZR33PXWCNL',
+        secretKey: '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',
+    );
+
+    Bucket bucket = spaces.bucket('db-images-link');
+    String res = await bucket.uploadFile(image.path, image.readAsBytesSync(), 'image', Permissions.public);
+    image_path = '$aws_path${image.path}';
+  }
+  catch (e) {
+    print("ERROR IS THIS: $e");
   }
 
+  // Updates the associated database entry with the S3 bucket link
   var settings = new ConnectionSettings(
       host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
       port: 3306,
@@ -45,16 +48,17 @@ Future<bool> uploadImage(File image) async {
       password: 'willywonka',
       db: 'data');
   var conn = await MySqlConnection.connect(settings);
+  String colType = (tableName == 'campaigns') ? 'bannerImage' : 'profilePicture';
+  String idType = (tableName == 'campaigns') ? 'title' : 'username';
+  String query = 'update $tableName set $colType = "$image_path" where $idType = "$id"';
+  var result = await conn.query(query);
 
-  var image_s3_path = '$aws_path/$filename';
-  try {
-    var res = conn.query('insert into campaigns (bannerImage) values "$image_s3_path"');
-    returnType = true;
-  }
-  catch (e) { print("error linking to db: $e"); }
+  conn.close();
 
-  return returnType;
+  return image_path;
 }
+
+
 
 Future<List<Campaigns>> getAllCampaigns() async {
   Map<String, Campaigns> mapCampaigns = {};
