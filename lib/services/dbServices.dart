@@ -170,6 +170,7 @@ Future<List<NPO>> getAllNPO() async {
         name: '${row[1]}' ?? '',
         region: '${row[2]}' ?? '',
         npoDescription: '${row[3]}' ?? '',
+        totalMoneyRaised: 0.0,
 
       );
       allNPOs.add(npo);
