@@ -148,3 +148,38 @@ Future<NPO> getNpoInfo(String username) async {
 //  print((loggedInNpo.numInactiveCampaigns));
   return loggedInNpo;
 }
+
+Future<List<NPO>> getAllNPO() async {
+  List<NPO> allNPOs = [];
+  print("NPO started");
+
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  try {
+    var results = await conn.query('select * from non_profit');
+    for (var row in results) {
+      var npo = NPO(
+        username: '${row[0]}' ?? '',
+        name: '${row[1]}' ?? '',
+        region: '${row[2]}' ?? '',
+        npoDescription: '${row[3]}' ?? '',
+
+      );
+      allNPOs.add(npo);
+    }
+
+
+  } catch (e) {
+    print(e);
+  }
+
+  conn.close();
+  return allNPOs;
+}
