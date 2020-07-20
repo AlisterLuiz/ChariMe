@@ -19,7 +19,8 @@ tableName: the table that should be updated.
 
 See lib/screens/portrait/campaigns/addNewCampaignPortrait.dart for example
 */
-Future<String> uploadImage(File image, String id, String tableName, {isBanner=false}) async {
+Future<String> uploadImage(File image, String id, String tableName,
+    {isBanner = false}) async {
   var aws_path = 'https://db-images-link.s3.us-east-2.amazonaws.com/';
   String image_path = '';
 
@@ -49,8 +50,7 @@ Future<String> uploadImage(File image, String id, String tableName, {isBanner=fa
   var conn = await MySqlConnection.connect(settings);
 
   // just in case of an accident
-  if (tableName.toLowerCase() == 'users')
-    isBanner = false;
+  if (tableName.toLowerCase() == 'users') isBanner = false;
   String idType;
   String colType;
   if (tableName.toLowerCase() == 'non_profit')
@@ -58,7 +58,9 @@ Future<String> uploadImage(File image, String id, String tableName, {isBanner=fa
   else
     idType = (tableName.toLowerCase() == 'campaigns') ? 'title' : 'username';
 
-  colType = (isBanner || tableName.toLowerCase() == 'campaigns') ? 'bannerImage' : 'profilePicture';
+  colType = (isBanner || tableName.toLowerCase() == 'campaigns')
+      ? 'bannerImage'
+      : 'profilePicture';
 
   String query =
       'update $tableName set $colType = "$image_path" where $idType = "$id"';
@@ -95,19 +97,19 @@ Future<List<Campaigns>> getAllCampaigns() async {
         sum = s[0];
       }
 
-      var resSet = await conn.query(('select profilePicture from non_profit where username = "${row[4]}"'));
+      var resSet = await conn.query(
+          ('select profilePicture from non_profit where username = "${row[4]}"'));
       for (var s in resSet) {
         profilePic = s[0].toString();
       }
       var campDictionary = Campaigns(
-        campTitle: '${row[1]}' ?? '',
-        campDescription: '${row[2]}' ?? '',
-        isActive: row[3] == 1 ? true : false,
-        hostedByNPO: '${row[4]}' ?? '',
-        bannerImage: '${row[5] ?? ''}',
-        totalMoneyRaised: sum.runtimeType == Null ? 0.0 : sum,
-        npoProfile: profilePic
-      );
+          campTitle: '${row[1]}' ?? '',
+          campDescription: '${row[2]}' ?? '',
+          isActive: row[3] == 1 ? true : false,
+          hostedByNPO: '${row[4]}' ?? '',
+          bannerImage: '${row[5] ?? ''}',
+          totalMoneyRaised: sum.runtimeType == Null ? 0.0 : sum,
+          npoProfile: profilePic);
       mapCampaigns['${row[1]}'] = campDictionary;
     }
     mapCampaigns.forEach((key, value) {
@@ -173,14 +175,17 @@ Future<NPO> getNpoDetails(String name) async {
 
   try {
     print("Trying to fetch data for the NPO information.");
-    var results = await conn
-        .query('select * from non_profit where username = ?', [name]);
+    var results =
+        await conn.query('select * from non_profit where username = ?', [name]);
     for (var row in results) {
       loggedInNpo = NPO(
-          username: '${row[0]}' ?? '',
-          name: name ?? '',
-          region: '${row[2]}' ?? '',
-          npoDescription: '${row[3]}');
+        username: '${row[0]}' ?? '',
+        name: name ?? '',
+        region: '${row[2]}' ?? '',
+        npoDescription: '${row[3]}',
+        profilePicture: '${row[5]}' ?? '',
+        bannerPicture: '${row[6]}' ?? '',
+      );
     }
     var donations = await conn.query(
         'select sum(donations.amount) from donations, campaigns where donations.campaignID = campaigns.campaignID and campaigns.name = ?',
@@ -330,7 +335,6 @@ Future<String> getTotalRaisedByTheApp() async {
     var results = await conn.query('select sum(amount) from donations');
     for (var row in results) {
       total = '${row[0]}';
-
     }
   } catch (e) {
     print(e);
@@ -341,4 +345,3 @@ Future<String> getTotalRaisedByTheApp() async {
   conn.close();
   return total;
 }
-

@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 Container getCampaignsList(BuildContext context, Function setState, List list) {
@@ -16,17 +17,25 @@ Container getCampaignsList(BuildContext context, Function setState, List list) {
 FittedBox getCampaignCard(BuildContext context, Campaigns campaign) {
   return FittedBox(
     child: InkWell(
-      onTap: () {
+      onTap: () async {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CampaignScreenPortrait(
-              campaignImage: campaign.bannerImage,
-              charityImage:
-                  'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-              campaignName: campaign.campTitle,
-              charityName: campaign.hostedByNPO,
-              desc: campaign.campDescription,
+            builder: (context) => FutureBuilder<NPO>(
+              future: getNpoDetails(campaign.hostedByNPO),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? CampaignScreenPortrait(
+                        campaignImage: campaign.bannerImage,
+                        campaignName: campaign.campTitle,
+                        npo: snapshot.data,
+                        desc: campaign.campDescription,
+                        moneyRaised: campaign.totalMoneyRaised,
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
+              },
             ),
           ),
         );

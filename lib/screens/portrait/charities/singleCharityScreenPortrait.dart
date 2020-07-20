@@ -1,12 +1,19 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class CharityScreenPortrait extends StatefulWidget {
   final String charityBanner;
   final String charityImage;
   final String charityName;
+  final double moneyRaised;
+  final String desc;
 
   CharityScreenPortrait(
-      {this.charityBanner, this.charityName, this.charityImage});
+      {this.charityBanner,
+      this.charityName,
+      this.charityImage,
+      this.moneyRaised,
+      this.desc});
 
   @override
   _CharityScreenPortraitState createState() => _CharityScreenPortraitState();
@@ -15,7 +22,7 @@ class CharityScreenPortrait extends StatefulWidget {
 class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
   Widget build(BuildContext context) {
     List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
-
+    List<NPO> npo = Provider.of<List<NPO>>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: ListView(
@@ -69,11 +76,17 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
           ),
           Column(
             children: [
-              Text(
-                widget.charityName,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w800,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Text(
+                  widget.charityName,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               sizedBox(10, 0),
@@ -85,7 +98,7 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
               ),
               sizedBox(10, 0),
               Text(
-                '\$1,023,141',
+                '\$' + "${widget.moneyRaised}",
                 style: TextStyle(
                   fontSize: 23,
                   color: Theme.of(context).accentColor,
@@ -126,14 +139,10 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
                         getRichText(context, 'Founded: ', '1985'),
                       ],
                     ),
-                    sizedBox(10, 0),
-                    getRichText(context, 'Founders: ', 'John Doe'),
                   ],
                 ),
                 sizedBox(10, 0),
-                Text(
-                  'Ad cupidatat deserunt pariatur et velit nisi cupidatat dolore qui mollit. Veniam consectetur aute excepteur exercitation irure eiusmod fugiat. Sint laboris enim ea aliqua amet ad veniam sunt sunt enim ad ea aliquip. Nulla tempor adipisicing elit labore enim proident.',
-                ),
+                Text(widget.desc),
                 sizedBox(10, 0),
                 getHomeHeader(context, 'Current Campaigns',
                     'Campaigns run by ${widget.charityName}!'),
@@ -147,7 +156,7 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
                 sizedBox(5, 0),
                 getCharitiesList(context, () {
                   setState(() {});
-                }),
+                }, npo),
               ],
             ),
           ),

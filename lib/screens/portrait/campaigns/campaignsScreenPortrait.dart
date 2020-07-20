@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class CampaignsScreenPortrait extends StatefulWidget {
@@ -88,26 +89,9 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                     // campaign.region,
                     // campaign.bannerImage
                   ],
-                  builder: (campaign) => Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: campaigns.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: screenWidth(context) *
-                              0.5 /
-                              (screenHeight(context) * 0.35),
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return getCampaignCard(
-                            context,
-                            campaign,
-                          );
-                        }),
+                  builder: (campaign) => getCampaignCard(
+                    context,
+                    campaign,
                   ),
                 ),
               );
@@ -147,18 +131,29 @@ class _CampaignsScreenPortraitState extends State<CampaignsScreenPortrait> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: ListTile(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CampaignScreenPortrait(
-                                campaignImage: campaigns[i].bannerImage,
-                                charityImage:
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                campaignName: campaigns[i].campTitle,
-                                charityName: campaigns[i].hostedByNPO,
-                                desc: campaigns[i].campDescription,
-                              ),
+                              builder: (context) => FutureBuilder<NPO>(
+                                  future:
+                                      getNpoDetails(campaigns[i].hostedByNPO),
+                                  builder: (context, snapshot) {
+                                    return snapshot.hasData
+                                        ? CampaignScreenPortrait(
+                                            campaignImage:
+                                                campaigns[i].bannerImage,
+                                            campaignName:
+                                                campaigns[i].campTitle,
+                                            npo: snapshot.data,
+                                            desc: campaigns[i].campDescription,
+                                            moneyRaised:
+                                                campaigns[i].totalMoneyRaised,
+                                          )
+                                        : Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                  }),
                             ),
                           );
                         },

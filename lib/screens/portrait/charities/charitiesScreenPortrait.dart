@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class CharitiesScreenPortrait extends StatefulWidget {
@@ -9,6 +10,7 @@ class CharitiesScreenPortrait extends StatefulWidget {
 class _CharitiesScreenPortraitState extends State<CharitiesScreenPortrait> {
   @override
   Widget build(BuildContext context) {
+    List<NPO> npo = Provider.of<List<NPO>>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -25,7 +27,7 @@ class _CharitiesScreenPortraitState extends State<CharitiesScreenPortrait> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: SearchPage(
+                delegate: SearchPage<NPO>(
                   barTheme: (Provider.of<ThemeModel>(context, listen: false)
                               .currentTheme ==
                           darkTheme)
@@ -47,7 +49,7 @@ class _CharitiesScreenPortraitState extends State<CharitiesScreenPortrait> {
                           ),
                           fontFamily: 'Montserrat',
                         ),
-                  items: ['Charity Name', 'Charity Name', 'Charity Name'],
+                  items: npo.toList(),
                   searchLabel: 'Search Charities',
                   suggestion: Container(
                     padding: EdgeInsets.symmetric(
@@ -62,34 +64,19 @@ class _CharitiesScreenPortraitState extends State<CharitiesScreenPortrait> {
                         sizedBox(10, 0),
                         getCharitiesList(context, () {
                           setState(() {});
-                        }),
+                        }, npo),
                       ],
                     ),
                   ),
-                  // failure: Center(
-                  //   child: Text('No Charity Found :('),
-                  // ),
-                  failure: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
-                    child: GridView.builder(
-                        itemCount: 5,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: screenWidth(context) *
-                              0.5 /
-                              (screenHeight(context) * 0.2),
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return getCharityCard(context);
-                        }),
+                  failure: Center(
+                    child: Text('No Charity Found :('),
                   ),
-                  filter: (filter) => [],
-                  builder: (filter) => getCharitiesList(context, () {
-                    setState(() {});
-                  }),
+                  filter: (charity) => [
+                    charity.name,
+                    charity.npoDescription,
+                    charity.region,
+                  ],
+                  builder: (charity) => getCharityCard(context, charity),
                 ),
               );
             },
@@ -126,48 +113,52 @@ class _CharitiesScreenPortraitState extends State<CharitiesScreenPortrait> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: ListTile(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CharityScreenPortrait(
-                                charityBanner:
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                charityImage:
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                charityName: 'Charity Name',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CharityScreenPortrait(
+                                  charityBanner: npo[i].bannerPicture,
+                                  charityImage: npo[i].profilePicture,
+                                  charityName: npo[i].name,
+                                  desc: npo[i].npoDescription,
+                                  moneyRaised: npo[i].totalMoneyRaised,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text((i + 1).toString()),
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+                            );
+                          },
+                          title: Row(
+                            children: <Widget>[
+                              Text((i + 1).toString()),
+                              sizedBox(0, 10),
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      Theme.of(context).canvasColor,
+                                  backgroundImage:
+                                      NetworkImage(npo[i].profilePicture),
+                                ),
                               ),
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Theme.of(context).canvasColor,
-                                backgroundImage: NetworkImage(
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                              sizedBox(0, 10),
+                              Container(
+                                width: screenWidth(context) * 0.35,
+                                child: AutoSizeText(
+                                  npo[i].name,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                            AutoSizeText(
-                              'Charity Name',
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                        trailing: Text(
-                          '\$100,421',
-                          style: TextStyle(
-                            color: Theme.of(context).accentColor,
+                            ],
                           ),
-                        ),
-                      ),
+                          trailing: Text(
+                            '\$' + "${npo[i].totalMoneyRaised}",
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                            ),
+                          )),
                     ),
                   ],
                 );

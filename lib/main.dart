@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/providers/usernameProvider.dart';
 import 'package:ChariMe/utilities/index.dart';
 import 'package:device_preview/device_preview.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         FutureProvider<List<Campaigns>>.value(
           value: getAllCampaigns(),
+        ),
+        FutureProvider<List<NPO>>.value(
+          value: getAllNPO(),
         ),
       ],
       child: MaterialApp(

@@ -1,3 +1,4 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class HomeScreenPortrait extends StatefulWidget {
@@ -6,23 +7,22 @@ class HomeScreenPortrait extends StatefulWidget {
 }
 
 class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
-  List<String> categories = [
-    '	Red Cross Society',
-    'Black Lives Matter',
-    'Goodwill',
-    'St Judes'
-  ];
+  // List<String> categories = [
+  //   '	Red Cross Society',
+  //   'Black Lives Matter',
+  //   'Goodwill',
+  //   'St Judes'
+  // ];
   String _total = "Loading value..";
   _HomeScreenPortraitState() {
-    getTotalRaisedByTheApp().then((value) => setState((){
-      _total = value;
-    }));
+    getTotalRaisedByTheApp().then((value) => setState(() {
+          _total = value;
+        }));
   }
 
   Widget build(BuildContext context) {
     List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
-
-
+    List<NPO> npo = Provider.of<List<NPO>>(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -47,7 +47,7 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                 ),
                 sizedBox(15, 0),
                 Text(
-                  '\$'+_total,
+                  '\$' + _total,
                   style: TextStyle(
                     fontSize: 23,
                     color: Theme.of(context).accentColor,
@@ -56,6 +56,13 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                 sizedBox(15, 0),
                 Text(
                   'Thank You!',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                sizedBox(15, 0),
+                Text(
+                  'ChariMe Team',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -80,17 +87,17 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      for (int i = 0; i < categories.length; i++)
+                      for (int i = 0; i < 4; i++)
                         InkWell(
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => CharityScreenPortrait(
-                                charityBanner:
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                charityImage:
-                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-                                charityName: 'Charity Name',
+                                charityBanner: npo[i].bannerPicture,
+                                charityImage: npo[i].profilePicture,
+                                charityName: npo[i].name,
+                                desc: npo[i].npoDescription,
+                                moneyRaised: npo[i].totalMoneyRaised,
                               ),
                             ),
                           ),
@@ -98,13 +105,14 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CircleAvatar(
-                                backgroundColor: Theme.of(context).accentColor,
+                                backgroundImage:
+                                    NetworkImage(npo[i].profilePicture),
                               ),
                               sizedBox(10, 0),
                               Container(
                                 width: screenWidth(context) * 0.2,
                                 child: AutoSizeText(
-                                  categories[i],
+                                  npo[i].name,
                                   maxLines: 2,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontSize: 11),

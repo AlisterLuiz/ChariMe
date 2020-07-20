@@ -51,15 +51,15 @@ class CampaignBarChartState extends State<CampaignBarChart> {
                 getTitles: (double value) {
                   switch (value.toInt()) {
                     case 0:
-                      return 'Username';
+                      return 'Smith';
                     case 1:
-                      return 'Username';
+                      return 'Hayden';
                     case 2:
-                      return 'Username';
+                      return 'Timothy';
                     case 3:
-                      return 'Username';
+                      return 'Caroll';
                     case 4:
-                      return 'Username';
+                      return 'Miranda';
                     default:
                       return '';
                   }

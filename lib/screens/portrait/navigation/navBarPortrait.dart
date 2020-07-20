@@ -34,7 +34,11 @@ class _NavigationBarState extends State<NavigationBarPortrait> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: _children[currentIndex.getIndex()],
+          body: (Provider.of<List<Campaigns>>(context) != null)
+              ? _children[currentIndex.getIndex()]
+              : Center(
+                  child: CircularProgressIndicator(),
+                ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: currentIndex.getIndex(),
             onTap: (index) {

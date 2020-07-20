@@ -1,10 +1,12 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/screens/portrait/campaigns/paymentSuccessfulPage.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class DonatePagePortrait extends StatefulWidget {
   final String campaignName;
   final String charityName;
-  DonatePagePortrait({this.campaignName, this.charityName});
+  final NPO npo;
+  DonatePagePortrait({this.campaignName, this.charityName, this.npo});
   _DonatePagePortraitState createState() => _DonatePagePortraitState();
 }
 
@@ -57,7 +59,7 @@ class _DonatePagePortraitState extends State<DonatePagePortrait> {
                 ),
               ),
               sizedBox(10, 0),
-              getCharityRow(context, widget.charityName),
+              getCharityRow(context, widget.npo),
               Column(
                 children: [
                   sizedBox(10, 0),

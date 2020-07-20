@@ -1,17 +1,19 @@
+import 'package:ChariMe/models/npoModel.dart';
 import 'package:ChariMe/screens/portrait/campaigns/donatePage.dart';
 import 'package:ChariMe/utilities/index.dart';
 
 class CampaignScreenPortrait extends StatefulWidget {
   final String campaignImage;
   final String campaignName;
-  final String charityImage;
-  final String charityName;
   final String desc;
+  final double moneyRaised;
+  final NPO npo;
+
   CampaignScreenPortrait(
       {this.campaignImage,
       this.campaignName,
-      this.charityName,
-      this.charityImage,
+      this.moneyRaised,
+      this.npo,
       this.desc});
 
   @override
@@ -21,7 +23,8 @@ class CampaignScreenPortrait extends StatefulWidget {
 class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
   Widget build(BuildContext context) {
     List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
-
+    print("NPO HERE" + widget.npo.profilePicture);
+    // print("NPO HERE" + widget.npo.name);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: ListView(
@@ -46,31 +49,37 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
             ],
           ),
           sizedBox(20, 0),
-          Column(
-            children: [
-              Text(
-                widget.campaignName,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w800,
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 20,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  widget.campaignName,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              sizedBox(10, 0),
-              Text(
-                'Total Money Raised',
-                style: TextStyle(
-                  fontSize: 23,
+                sizedBox(10, 0),
+                Text(
+                  'Total Money Raised',
+                  style: TextStyle(
+                    fontSize: 23,
+                  ),
                 ),
-              ),
-              sizedBox(10, 0),
-              Text(
-                '\$1,023,141',
-                style: TextStyle(
-                  fontSize: 23,
-                  color: Theme.of(context).accentColor,
+                sizedBox(10, 0),
+                Text(
+                  '\$${widget.moneyRaised}',
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Container(
             padding: EdgeInsets.symmetric(
@@ -90,7 +99,7 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                       MaterialPageRoute(
                         builder: (context) => DonatePagePortrait(
                           campaignName: widget.campaignName,
-                          charityName: widget.charityName,
+                          npo: widget.npo,
                         ),
                       ),
                     );
@@ -105,7 +114,7 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
                   ),
                 ),
                 sizedBox(10, 0),
-                getCharityRow(context, widget.charityName),
+                getCharityRow(context, widget.npo),
                 sizedBox(10, 0),
                 getHomeHeader(
                   context,
@@ -140,18 +149,21 @@ class _CampaignScreenPortraitState extends State<CampaignScreenPortrait> {
   }
 }
 
-InkWell getCharityRow(BuildContext context, String charityName) {
+InkWell getCharityRow(
+  BuildContext context,
+  NPO npo,
+) {
   return InkWell(
     onTap: () {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => CharityScreenPortrait(
-            charityBanner:
-                'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-            charityImage:
-                'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png',
-            charityName: 'Charity Name',
+            charityBanner: npo.bannerPicture,
+            charityImage: npo.profilePicture,
+            charityName: npo.name,
+            desc: npo.npoDescription,
+            moneyRaised: npo.totalMoneyRaised,
           ),
         ),
       );
@@ -173,13 +185,12 @@ InkWell getCharityRow(BuildContext context, String charityName) {
                       child: CircleAvatar(
                         radius: 20,
                         backgroundColor: Theme.of(context).canvasColor,
-                        backgroundImage: NetworkImage(
-                            'https://upload.wikimedia.org/wikipedia/commons/7/70/Kawasaki_Candy_Lime_Green.png'),
+                        backgroundImage: NetworkImage(npo.profilePicture),
                       ),
                     ),
                     sizedBox(0, 10),
                     Text(
-                      charityName,
+                      npo.name,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
