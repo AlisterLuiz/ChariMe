@@ -12,9 +12,17 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
     'Goodwill',
     'St Judes'
   ];
+  String _total = "Loading value..";
+  _HomeScreenPortraitState() {
+    getTotalRaisedByTheApp().then((value) => setState((){
+      _total = value;
+    }));
+  }
 
   Widget build(BuildContext context) {
     List<Campaigns> campaigns = Provider.of<List<Campaigns>>(context);
+
+
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -39,7 +47,7 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                 ),
                 sizedBox(15, 0),
                 Text(
-                  '\$1,023,141',
+                  '\$'+_total,
                   style: TextStyle(
                     fontSize: 23,
                     color: Theme.of(context).accentColor,

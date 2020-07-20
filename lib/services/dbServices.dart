@@ -234,3 +234,31 @@ Future<List<NPO>> getAllNPO() async {
   conn.close();
   return allNPOs;
 }
+
+Future<String> getTotalRaisedByTheApp() async {
+  String total;
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  try {
+    var results = await conn.query('select sum(amount) from donations');
+    for (var row in results) {
+      total = '${row[0]}';
+
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  print(total);
+
+  conn.close();
+  return total;
+}
+
