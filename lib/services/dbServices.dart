@@ -159,6 +159,67 @@ Future<User> getUserInfo(String username) async {
   return loggedInUser;
 }
 
+Future<NPO> getNpoDetails(String name) async {
+  print("NPO started");
+  NPO loggedInNpo;
+
+  var settings = new ConnectionSettings(
+      host: 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
+      port: 3306,
+      user: 'peanut',
+      password: 'willywonka',
+      db: 'data');
+  var conn = await MySqlConnection.connect(settings);
+
+  try {
+    print("Trying to fetch data for the NPO information.");
+    var results = await conn
+        .query('select * from non_profit where username = ?', [name]);
+    for (var row in results) {
+      loggedInNpo = NPO(
+          username: '${row[0]}' ?? '',
+          name: name ?? '',
+          region: '${row[2]}' ?? '',
+          npoDescription: '${row[3]}');
+    }
+    var donations = await conn.query(
+        'select sum(donations.amount) from donations, campaigns where donations.campaignID = campaigns.campaignID and campaigns.name = ?',
+        [name]);
+    for (var row in donations) {
+      loggedInNpo.totalMoneyRaised = row[0] ?? 0;
+    }
+
+    var activeCamps = await conn.query(
+        'select count(campaignID) from campaigns where campaigns.isActive = 1 and campaigns.name = ?',
+        [name]);
+    for (var row in activeCamps) {
+//      print(row[0]);
+      loggedInNpo.numActiveCampaigns = row[0] ?? 0;
+    }
+
+    var inactiveCamps = await conn.query(
+        'select count(campaignID) from campaigns where campaigns.isActive = 0 and campaigns.name = ?',
+        [name]);
+    for (var row in inactiveCamps) {
+      loggedInNpo.numInactiveCampaigns = row[0] ?? 0;
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  conn.close();
+  print("info gathered: " +
+      loggedInNpo.username +
+      " " +
+      loggedInNpo.region +
+      " " +
+      loggedInNpo.name);
+//  print(loggedInNpo.totalMoneyRaised);
+//  print((loggedInNpo.numActiveCampaigns));
+//  print((loggedInNpo.numInactiveCampaigns));
+  return loggedInNpo;
+}
+
 Future<NPO> getNpoInfo(String username) async {
   print("NPO started");
   NPO loggedInNpo;
