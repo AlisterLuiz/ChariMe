@@ -241,6 +241,8 @@ Future<List<NPO>> getAllNPO() async {
         region: '${row[2]}' ?? '',
         npoDescription: '${row[3]}' ?? '',
         totalMoneyRaised: 0.0,
+        profilePicture: '${row[5]}' ?? '',
+        bannerPicture: '${row[6]}' ?? '',
       );
       allNPOs.add(npo);
     }
