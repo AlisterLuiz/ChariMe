@@ -8,6 +8,7 @@ class Campaigns {
   double totalMoneyRaised;
   String region;
   String bannerImage;
+  String npoProfile;
   Campaigns({
     @required this.campTitle,
     @required this.campDescription,
@@ -15,6 +16,7 @@ class Campaigns {
     @required this.isActive,
     @required this.totalMoneyRaised,
     @required this.region,
-    @required this.bannerImage
+    @required this.bannerImage,
+    this.npoProfile
   });
 }
