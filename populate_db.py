@@ -20,7 +20,7 @@ def init():
     Initializes the database links and the cursor for navigation
     """
     global db, cursor
-    db = mysql.connect(
+    db = mysql.connect
             host = 'app-db.cdslhq2tdh2f.us-east-2.rds.amazonaws.com',
             user = 'peanut',
             passwd = 'willywonka'
@@ -182,7 +182,9 @@ def make_donation():
 
 if __name__ == '__main__':
     init()
+    # ----- WARNING!!! -----
     # clear_data()
+    # ----- WARNING!!! -----
     # populate_users(100)
     # populate_non_profits(50)
     # make_campaigns()

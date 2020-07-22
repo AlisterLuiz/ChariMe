@@ -87,7 +87,7 @@ Future<List<Campaigns>> getAllCampaigns() async {
 
   try {
     print("Trying to fetch data.");
-    var results = await conn.query('select * from campaigns');
+    var results = await conn.query('select * from campaigns LIMIT 50');
     String profilePic;
     for (var row in results) {
       var campSum = await conn.query(
@@ -299,7 +299,7 @@ Future<List<NPO>> getAllNPO() async {
   var conn = await MySqlConnection.connect(settings);
 
   try {
-    var results = await conn.query('select * from non_profit');
+    var results = await conn.query('select * from non_profit LIMIT 50');
     for (var row in results) {
       var npo = NPO(
         username: '${row[0]}' ?? '',

@@ -98,7 +98,7 @@ class _CharityScreenPortraitState extends State<CharityScreenPortrait> {
               ),
               sizedBox(10, 0),
               Text(
-                '\$' + "${widget.moneyRaised}",
+                '\$1204055',
                 style: TextStyle(
                   fontSize: 23,
                   color: Theme.of(context).accentColor,
