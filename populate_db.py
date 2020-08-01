@@ -181,12 +181,12 @@ def make_donation():
 
 
 if __name__ == '__main__':
-    init()
+    # init()
     # ----- WARNING!!! -----
     # clear_data()
     # ----- WARNING!!! -----
     # populate_users(100)
     # populate_non_profits(50)
     # make_campaigns()
-    make_donation()
-    db.commit()
+    # make_donation()
+    # db.commit()
